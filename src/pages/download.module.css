@@ -1,0 +1,400 @@
+.downloadPage {
+  min-height: 100vh;
+}
+
+.downloadHero {
+  padding: 4rem 0 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.downloadHero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.downloadTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.downloadSubtitle {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* 版本信息 */
+.versionInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1rem 1.5rem;
+  background: rgba(74, 222, 128, 0.05);
+  border: 1px solid rgba(74, 222, 128, 0.1);
+  border-radius: 12px;
+}
+
+.versionBadge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.versionTag {
+  font-weight: 700;
+  color: #4ade80;
+  font-size: 1.1rem;
+}
+
+.versionDate {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+}
+
+.releaseLink {
+  color: #4ade80;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.releaseLink:hover {
+  opacity: 0.8;
+}
+
+/* 测速区域 */
+.testSection {
+  margin: 2rem 0;
+}
+
+.speedTestPanel {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.speedTestHeader {
+  margin-bottom: 1rem;
+}
+
+.speedTestHeader h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.speedTestHeader p {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.mirrorList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mirrorItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.2s ease;
+}
+
+.mirrorItem:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(74, 222, 128, 0.1);
+}
+
+.mirrorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mirrorName {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.mirrorDesc {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.mirrorStatus {
+  flex-shrink: 0;
+}
+
+.progressBar {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.progressBarFill {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+@keyframes progress-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.testActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.bestMirrorTag {
+  color: #4ade80;
+  font-size: 0.95rem;
+}
+
+/* 平台卡片 */
+.platformsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+@media screen and (max-width: 996px) {
+  .platformsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.platformCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.platformHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.platformIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.platformHeader h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.platformHeader p {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0;
+}
+
+.mirrorSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+}
+
+.mirrorSelector label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.mirrorSelect {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  color: var(--ifm-font-color-base);
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.mirrorSelect:focus {
+  outline: none;
+  border-color: rgba(74, 222, 128, 0.4);
+}
+
+.fileList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.2s ease;
+}
+
+.fileItem:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(74, 222, 128, 0.15);
+}
+
+.fileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.fileName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileMeta {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* 错误提示 */
+.errorBox {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.08) 0%, rgba(239, 68, 68, 0.04) 100%);
+  border: 1px solid rgba(248, 113, 113, 0.15);
+  border-radius: 16px;
+  margin: 2rem 0;
+}
+
+.errorBox p {
+  margin-bottom: 1rem;
+}
+
+/* 安装说明 */
+.installGuide {
+  margin: 4rem 0;
+}
+
+.installGuide h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.guideGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media screen and (max-width: 996px) {
+  .guideGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.guideCard {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.guideCard h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.guideCard ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.guideCard li {
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.guideCard li strong {
+  color: var(--ifm-font-color-base);
+}
+
+/* 安全提示 */
+.safetyNotice {
+  margin: 3rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(250, 204, 21, 0.08) 0%, rgba(234, 179, 8, 0.04) 100%);
+  border: 1px solid rgba(250, 204, 21, 0.15);
+  border-radius: 16px;
+}
+
+.safetyNotice h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #facc15;
+}
+
+.safetyNotice p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.safetyNotice a {
+  color: #4ade80;
+  text-decoration: none;
+}

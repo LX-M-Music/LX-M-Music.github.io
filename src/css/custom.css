@@ -1,0 +1,281 @@
+/**
+ * LX-M Music Doc - Custom Styles
+ * 采用深色主题为主，搭配绿色强调色
+ */
+
+:root:not(#\#):not(#\#) {
+  --ifm-color-primary: #4ade80;
+  --ifm-color-primary-dark: #22c55e;
+  --ifm-color-primary-darker: #16a34a;
+  --ifm-color-primary-darkest: #15803d;
+  --ifm-color-primary-light: #86efac;
+  --ifm-color-primary-lighter: #bbf7d0;
+  --ifm-color-primary-lightest: #dcfce7;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --ifm-navbar-background-color: rgba(17, 24, 39, 0.85);
+  --ifm-navbar-shadow: 0 1px 0 0 rgba(255,255,255,0.05);
+  --ifm-footer-background-color: #0f172a;
+}
+
+[data-theme='dark']:not(#\#):not(#\#) {
+  --ifm-color-primary: #4ade80;
+  --ifm-color-primary-dark: #22c55e;
+  --ifm-color-primary-darker: #16a34a;
+  --ifm-color-primary-darkest: #15803d;
+  --ifm-color-primary-light: #86efac;
+  --ifm-color-primary-lighter: #bbf7d0;
+  --ifm-color-primary-lightest: #dcfce7;
+  --ifm-background-color: #0f172a;
+  --ifm-background-surface-color: #1e293b;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+  --ifm-navbar-background-color: rgba(15, 23, 42, 0.85);
+  --ifm-footer-background-color: #020617;
+}
+
+/* 导航栏玻璃态效果 */
+.navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.navbar__link {
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* 按钮样式增强 */
+.button--primary {
+  --ifm-button-background-color: var(--ifm-color-primary);
+  --ifm-button-border-color: var(--ifm-color-primary);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.button--primary:not(.button--outline):hover {
+  --ifm-button-background-color: var(--ifm-color-primary-dark);
+  --ifm-button-border-color: var(--ifm-color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+}
+
+.button--secondary {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.button--secondary:hover {
+  transform: translateY(-1px);
+}
+
+/* 卡片样式 */
+.card {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(74, 222, 128, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* 文档侧边栏 */
+.theme-doc-sidebar-menu {
+  font-size: 0.9rem;
+}
+
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible {
+  font-weight: 600;
+}
+
+/* 代码块 */
+.theme-code-block {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* 提示框 */
+.alert {
+  border-radius: 10px;
+  border-left-width: 4px;
+}
+
+/* 表格 */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* 容器高度修复 */
+.container, .container>.row, [class*='docItemContainer'] {
+  height: 100%;
+}
+[class*='docItemContainer'] {
+  display: flex;
+  flex-flow: column nowrap;
+}
+[class*='docItemContainer']>article {
+  flex: auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+[class*='docItemContainer']>article>.markdown {
+  flex: auto;
+}
+[class*='docPage'] {
+  flex: 1;
+}
+
+/* 下载页面特殊样式 */
+.download-card {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(34, 197, 94, 0.04) 100%);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.download-card:hover {
+  border-color: rgba(74, 222, 128, 0.4);
+  box-shadow: 0 8px 32px rgba(74, 222, 128, 0.1);
+}
+
+.mirror-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.mirror-badge--fast {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.mirror-badge--medium {
+  background: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.mirror-badge--slow {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.mirror-badge--testing {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* 首页英雄区动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.4); }
+}
+
+.hero-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* 特性卡片 */
+.feature-card {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: rgba(74, 222, 128, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 进度条 */
+.progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+  transition: width 0.3s ease;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem 1rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .download-card {
+    padding: 1.5rem;
+  }
+}
