@@ -25,7 +25,7 @@ sidebar_position: 1
 - 运行时由加载器动态注入
 - 接口失效时**只需更新插件，无需主程序发版**
 
-详见 [扩展音源插件](/ext-source-plugin)。
+详见 [扩展音源插件](./ext-source-plugin.md)。
 
 ### 🍪 Cookie 同步设置
 
@@ -36,7 +36,7 @@ sidebar_position: 1
 
 > ⚠️ Cookie **仅用于同步**，不解锁高音质。高音质请通过「自定义源」配置。
 
-详见 [Cookie 同步设置](/cookie-sync)。
+详见 [Cookie 同步设置](./cookie-sync.md)。
 
 ### 🎨 Fluent UI 风格图标
 
@@ -67,7 +67,7 @@ sidebar_position: 1
 5. 回到「基本设置」选择刚导入的音源
 6. 在「播放设置 → 优先播放的音质」中选择目标音质
 
-详见 [自定义音源](/custom-source)。
+详见 [自定义音源](./custom-source.md)。
 
 ## 快速开始
 

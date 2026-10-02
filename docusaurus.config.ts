@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'LX-M Music',
   tagline: '一个免费开源的音乐播放器 · 扩展音源 · Cookie同步 · 高音质解锁',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   future: {
     v4: true,

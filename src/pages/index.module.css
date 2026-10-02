@@ -60,7 +60,7 @@
 
 .heroSubtitle {
   font-size: 1.25rem;
-  color: var(--ifm-color-emphasis-600);
+  color: rgba(203, 213, 225, 0.85);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
@@ -82,7 +82,9 @@
   font-size: 0.85rem;
   font-weight: 500;
   color: #4ade80;
-  transition: all 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .badge:hover {
@@ -123,8 +125,15 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
 }
 
 .heroLogo {
@@ -148,15 +157,10 @@
   height: auto;
 }
 
-/* Features Section */
+/* Features */
 .featuresSection {
   padding: 5rem 0;
   background: var(--ifm-background-color);
-}
-
-.sectionHeader {
-  text-align: center;
-  margin-bottom: 3rem;
 }
 
 .featuresGrid {
@@ -165,7 +169,104 @@
   gap: 1.5rem;
 }
 
+/* Comparison */
+.comparisonSection {
+  padding: 5rem 0;
+  background: var(--lxm-section-alt-bg);
+}
+
+.comparisonTableWrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--lxm-card-border);
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.comparisonTable th,
+.comparisonTable td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--lxm-surface-border);
+}
+
+.comparisonTable th {
+  background: rgba(74, 222, 128, 0.08);
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-align: left;
+}
+
+.comparisonTable tr:last-child td {
+  border-bottom: none;
+}
+
+.comparisonTable tbody tr:hover td {
+  background: rgba(74, 222, 128, 0.03);
+}
+
+.center {
+  text-align: center;
+}
+
+.currentCol {
+  color: var(--ifm-color-primary);
+}
+
+.featureName {
+  font-weight: 600;
+}
+
+.yes {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.no {
+  color: var(--ifm-color-emphasis-400);
+}
+
+.partial {
+  color: var(--ifm-color-warning-dark);
+  font-weight: 600;
+}
+
+/* CTA */
+.ctaSection {
+  padding: 5rem 0 6rem;
+  background: var(--ifm-background-color);
+}
+
+.ctaCard {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(34, 197, 94, 0.04) 100%);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.ctaText {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
 @media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem 1rem;
+  }
+
   .featuresGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -186,11 +287,7 @@
     font-size: 2.5rem;
   }
 
-  .heroLogoWrapper {
-    width: 150px;
-    height: 150px;
-  }
-
+  .heroLogoWrapper,
   .heroLogo {
     width: 150px;
     height: 150px;
@@ -201,65 +298,8 @@
     height: 200px;
   }
 
-  .buttons {
-    justify-content: center;
-  }
-
+  .buttons,
   .heroBadges {
     justify-content: center;
   }
-}
-
-/* Comparison Section */
-.comparisonSection {
-  padding: 5rem 0;
-  background: linear-gradient(180deg, var(--ifm-background-color) 0%, rgba(30, 41, 59, 0.5) 100%);
-}
-
-.comparisonTableWrapper {
-  overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.comparisonTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-}
-
-.comparisonTable th,
-.comparisonTable td {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.comparisonTable th {
-  background: rgba(74, 222, 128, 0.08);
-  font-weight: 600;
-  color: var(--ifm-color-primary);
-}
-
-.comparisonTable tr:last-child td {
-  border-bottom: none;
-}
-
-.comparisonTable tr:hover td {
-  background: rgba(74, 222, 128, 0.03);
-}
-
-/* CTA Section */
-.ctaSection {
-  padding: 5rem 0 6rem;
-  background: var(--ifm-background-color);
-}
-
-.ctaCard {
-  background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(34, 197, 94, 0.04) 100%);
-  border: 1px solid rgba(74, 222, 128, 0.15);
-  border-radius: 20px;
-  padding: 3rem;
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
 }

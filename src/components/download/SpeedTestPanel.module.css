@@ -1,0 +1,114 @@
+.panel {
+  background: var(--lxm-card-bg);
+  border: 1px solid var(--lxm-card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.note {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+  margin: 0;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.progress {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.5rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--lxm-surface-bg);
+  border: 1px solid var(--lxm-surface-border);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.chip:hover {
+  border-color: rgba(74, 222, 128, 0.15);
+}
+
+.best {
+  border-color: rgba(74, 222, 128, 0.45);
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.chipName {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badgeFast {
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--ifm-color-primary);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.badgeMedium {
+  background: rgba(250, 204, 21, 0.15);
+  color: var(--ifm-color-warning-dark);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.badgeSlow,
+.badgeError {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--ifm-color-danger-dark);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
