@@ -47,6 +47,16 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
+    {
+      type: 'category',
+      label: '应用文档（自动同步）',
+      link: {type: 'doc', id: 'upstream/readme'},
+      items: [
+        {type: 'doc', id: 'upstream/faq', label: '常见问题（上游 FAQ）'},
+        {type: 'doc', id: 'upstream/changelog', label: '更新日志'},
+        {type: 'doc', id: 'upstream/win7-compatibility', label: 'Win7 兼容说明'},
+      ],
+    },
   ],
 };
 

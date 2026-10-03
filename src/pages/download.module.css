@@ -1,42 +1,28 @@
+/* 下载页 —— Flutter / Material 3 扁平风 */
+
 .page {
   min-height: 100vh;
 }
 
 .hero {
-  padding: 4rem 0 2rem;
+  padding: 4.5rem 0 3rem;
   text-align: center;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
+  background: var(--lxm-section-alt-bg);
+  border-bottom: 1px solid var(--lxm-surface-border);
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   font-weight: 800;
-  margin-bottom: 0.5rem;
-  position: relative;
-  z-index: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.6rem;
 }
 
 .subtitle {
-  color: rgba(203, 213, 225, 0.85);
-  font-size: 1.1rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1.05rem;
   max-width: 640px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 
 .versionInfo {
@@ -47,9 +33,9 @@
   gap: 1rem;
   margin: 2rem 0 0;
   padding: 1rem 1.5rem;
-  background: rgba(74, 222, 128, 0.05);
-  border: 1px solid rgba(74, 222, 128, 0.1);
-  border-radius: 12px;
+  background: var(--lxm-card-bg);
+  border: 1px solid var(--lxm-card-border);
+  border-radius: 16px;
 }
 
 .versionBadge {
@@ -62,7 +48,8 @@
 .versionTag {
   font-weight: 700;
   color: var(--ifm-color-primary);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  font-family: var(--ifm-font-family-monospace);
 }
 
 .versionDate {
@@ -74,18 +61,18 @@
   color: var(--ifm-color-primary);
   font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.15s;
 }
 
 .releaseLink:hover {
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .errorBox {
   text-align: center;
   padding: 3rem;
-  background: linear-gradient(135deg, rgba(248, 113, 113, 0.08) 0%, rgba(239, 68, 68, 0.04) 100%);
-  border: 1px solid rgba(248, 113, 113, 0.15);
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.2);
   border-radius: 16px;
   margin: 2rem 0;
 }
@@ -97,7 +84,7 @@
 .platformsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
   margin: 2rem 0;
 }
 
@@ -112,8 +99,9 @@
 }
 
 .installGuide h2 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -121,7 +109,7 @@
 .guideGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 @media screen and (max-width: 996px) {
@@ -133,16 +121,25 @@
 .guideCard {
   background: var(--lxm-card-bg);
   border: 1px solid var(--lxm-card-border);
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 1.5rem;
 }
 
 .guideCard h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--lxm-surface-border);
+}
+
+.guideIcon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
 
 .guideCard ul {
@@ -170,13 +167,13 @@
 .safetyNotice {
   margin: 3rem 0;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(250, 204, 21, 0.08) 0%, rgba(234, 179, 8, 0.04) 100%);
-  border: 1px solid rgba(250, 204, 21, 0.15);
-  border-radius: 16px;
+  background: rgba(250, 204, 21, 0.08);
+  border: 1px solid rgba(250, 204, 21, 0.2);
+  border-radius: 20px;
 }
 
 .safetyNotice h3 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
   color: var(--ifm-color-warning-dark);

@@ -5,18 +5,18 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'LX-M Music',
   tagline: '一个免费开源的音乐播放器 · 扩展音源 · Cookie同步 · 高音质解锁',
-  favicon: 'img/favicon.svg',
+  favicon: 'img/app-icon.ico',
 
   future: {
     v4: true,
   },
 
-  url: 'https://miao-moe.github.io',
-  baseUrl: '/lx-m-doc/',
+  url: 'https://lx-m-music.github.io',
+  baseUrl: '/',
   trailingSlash: false,
 
-  organizationName: 'Miao-moe',
-  projectName: 'lx-m-doc',
+  organizationName: 'LX-M-Music',
+  projectName: 'LX-M-Music.github.io',
 
   onBrokenLinks: 'throw',
   markdown: {
@@ -58,7 +58,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/Miao-moe/lx-m-doc/tree/main/',
+          editUrl: 'https://github.com/LX-M-Music/LX-M-Music.github.io/tree/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -84,7 +84,7 @@ const config: Config = {
       title: 'LX-M Music',
       logo: {
         alt: 'LX-M Music Logo',
-        src: 'img/logo.svg',
+        src: 'img/app-icon-256.png',
       },
       items: [
         { type: 'doc', docId: 'desktop/index', position: 'left', label: '文档' },
@@ -92,7 +92,7 @@ const config: Config = {
         { type: 'doc', docId: 'desktop/ext-source-plugin', position: 'left', label: '扩展插件' },
         { to: '/download', label: '软件下载', position: 'left'},
         {
-          href: 'https://github.com/Miao-moe/lx-m_lx-Miao-moe-music-desktop',
+          href: 'https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop',
           label: 'GitHub',
           position: 'right',
         },
@@ -113,7 +113,7 @@ const config: Config = {
         {
           title: '社区',
           items: [
-            { label: 'GitHub Issues', href: 'https://github.com/Miao-moe/lx-m_lx-Miao-moe-music-desktop/issues' },
+            { label: 'GitHub Issues', href: 'https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop/issues' },
             { label: '软件下载', to: '/download' },
           ],
         },

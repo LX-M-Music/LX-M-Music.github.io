@@ -4,8 +4,7 @@ import type {
   ReleaseInfo,
   SpeedResult,
 } from '@site/src/data/download';
-import {assetsForPlatform, buildDownloadUrl} from '@site/src/data/download';
-import {formatBytes} from '@site/src/data/download';
+import {assetsForPlatform, buildDownloadUrl, formatBytes} from '@site/src/data/download';
 import styles from './DownloadCard.module.css';
 
 export default function DownloadCard({
@@ -40,7 +39,12 @@ export default function DownloadCard({
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <span className={styles.icon}>{platform.icon}</span>
+        <img
+          src={platform.iconSrc}
+          alt=""
+          className={styles.icon}
+          loading="lazy"
+        />
         <div>
           <h3>{platform.name}</h3>
           <p>{platform.description}</p>
@@ -48,7 +52,7 @@ export default function DownloadCard({
       </div>
 
       <div className={styles.mirrorSelector}>
-        <label htmlFor={`mirror-${platform.id}`}>下载镜像：</label>
+        <label htmlFor={`mirror-${platform.id}`}>下载镜像</label>
         <select
           id={`mirror-${platform.id}`}
           value={selectedMirror?.id}
@@ -68,13 +72,15 @@ export default function DownloadCard({
 
       <div className={styles.fileList}>
         {!release ? (
-          <div className={styles.empty}>⏳ 正在获取版本信息…</div>
+          <div className={styles.empty}>正在获取版本信息…</div>
         ) : (
           (() => {
             const assets = assetsForPlatform(release, platform);
             if (assets.length === 0) {
               return (
-                <div className={styles.empty}>暂无该平台安装包，可关注后续 Release</div>
+                <div className={styles.empty}>
+                  暂无该平台安装包，可关注后续 Release
+                </div>
               );
             }
             return assets.map(asset => (
@@ -98,7 +104,7 @@ export default function DownloadCard({
                   className="button button--primary button--sm"
                   target="_blank"
                   rel="noopener noreferrer">
-                  ⬇️ 下载
+                  下载
                 </a>
               </div>
             ));

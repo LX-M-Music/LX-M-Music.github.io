@@ -1,7 +1,7 @@
 /**
  * LX-M Music Doc - 全局样式
- * 页面级样式位于各页面/组件的 *.module.css 中；
- * 这里只保留主题变量与全局组件覆盖。
+ * 设计语言：Flutter / Material 3 扁平风 —— 纯色 tonal 表面、圆角、无渐变无投影。
+ * 页面级样式位于各页面/组件的 *.module.css；
  */
 
 :root:not(#\#):not(#\#) {
@@ -14,31 +14,38 @@
   --ifm-color-primary-lightest: #dcfce7;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --ifm-navbar-background-color: rgba(17, 24, 39, 0.85);
-  --ifm-navbar-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05);
-  --ifm-footer-background-color: #0f172a;
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --ifm-navbar-background-color: rgba(15, 23, 42, 0.92);
+  --ifm-navbar-shadow: none;
+  --ifm-footer-background-color: #0b1120;
+  --ifm-heading-font-weight: 700;
 
-  /* 页面卡片 / 面板共用变量（暗色为默认） */
-  --lxm-card-bg: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-  --lxm-card-border: rgba(255, 255, 255, 0.06);
-  --lxm-surface-bg: rgba(255, 255, 255, 0.02);
-  --lxm-surface-bg-hover: rgba(255, 255, 255, 0.04);
-  --lxm-surface-border: rgba(255, 255, 255, 0.04);
-  --lxm-section-alt-bg: linear-gradient(180deg, var(--ifm-background-color) 0%, rgba(30, 41, 59, 0.5) 100%);
+  /* Material 3 语义面（暗色为默认） */
+  --lxm-card-bg: #161e2c;
+  --lxm-card-border: rgba(255, 255, 255, 0.07);
+  --lxm-surface-bg: rgba(255, 255, 255, 0.03);
+  --lxm-surface-bg-hover: rgba(255, 255, 255, 0.06);
+  --lxm-surface-border: rgba(255, 255, 255, 0.06);
+  --lxm-section-alt-bg: #121926;
+  --lxm-on-primary: #052e12;
+  --lxm-primary-container: rgba(74, 222, 128, 0.12);
+  --lxm-primary-container-border: rgba(74, 222, 128, 0.26);
+  --lxm-on-primary-container: #86efac;
 }
 
 [data-theme='light']:not(#\#):not(#\#) {
-  --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
-  --ifm-navbar-shadow: 0 1px 0 0 rgba(15, 23, 42, 0.06);
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.94);
   --ifm-footer-background-color: #1e293b;
 
   --lxm-card-bg: #ffffff;
-  --lxm-card-border: rgba(15, 23, 42, 0.08);
-  --lxm-surface-bg: rgba(15, 23, 42, 0.02);
-  --lxm-surface-bg-hover: rgba(15, 23, 42, 0.04);
-  --lxm-surface-border: rgba(15, 23, 42, 0.06);
-  --lxm-section-alt-bg: linear-gradient(180deg, var(--ifm-background-color) 0%, rgba(15, 23, 42, 0.03) 100%);
+  --lxm-card-border: rgba(15, 23, 42, 0.1);
+  --lxm-surface-bg: rgba(15, 23, 42, 0.03);
+  --lxm-surface-bg-hover: rgba(15, 23, 42, 0.06);
+  --lxm-surface-border: rgba(15, 23, 42, 0.08);
+  --lxm-section-alt-bg: #f5f7f9;
+  --lxm-primary-container: rgba(34, 197, 94, 0.1);
+  --lxm-primary-container-border: rgba(34, 197, 94, 0.3);
+  --lxm-on-primary-container: #15803d;
 }
 
 [data-theme='dark']:not(#\#):not(#\#) {
@@ -52,15 +59,16 @@
   --ifm-background-color: #0f172a;
   --ifm-background-surface-color: #1e293b;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
-  --ifm-navbar-background-color: rgba(15, 23, 42, 0.85);
-  --ifm-footer-background-color: #020617;
+  --ifm-navbar-background-color: rgba(15, 23, 42, 0.92);
+  --ifm-footer-background-color: #0b1120;
 }
 
-/* 导航栏玻璃态效果 */
+/* 导航栏：实底 + 发丝分割线 */
 .navbar {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(127, 127, 127, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--lxm-surface-border);
+  box-shadow: none;
 }
 
 .navbar__title {
@@ -70,50 +78,76 @@
 
 .navbar__link {
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
 
 .navbar__link:hover {
   color: var(--ifm-color-primary);
 }
 
-/* 按钮样式增强 */
+/* Material 3 按钮：全圆角药丸形，禁用位移与发光 */
+.button {
+  border-radius: 100px;
+  font-weight: 600;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 .button--primary {
   --ifm-button-background-color: var(--ifm-color-primary);
-  --ifm-button-border-color: var(--ifm-color-primary);
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  --ifm-button-border-color: transparent;
+  color: var(--lxm-on-primary);
 }
 
 .button--primary:not(.button--outline):hover {
-  --ifm-button-background-color: var(--ifm-color-primary-dark);
-  --ifm-button-border-color: var(--ifm-color-primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+  --ifm-button-background-color: #34c46d;
+  --ifm-button-border-color: transparent;
+  color: var(--lxm-on-primary);
 }
 
 .button--secondary {
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  --ifm-button-background-color: transparent;
+  --ifm-button-border-color: transparent;
+  background: var(--lxm-primary-container);
+  border-color: var(--lxm-primary-container-border);
+  color: var(--lxm-on-primary-container);
 }
 
 .button--secondary:hover {
-  transform: translateY(-1px);
+  background: var(--lxm-primary-container);
+  border-color: var(--ifm-color-primary);
+  color: var(--lxm-on-primary-container);
 }
 
-/* 卡片样式 */
+.button--outline {
+  --ifm-button-border-color: var(--lxm-card-border);
+  --ifm-button-color: var(--ifm-font-color-base);
+}
+
+.button--outline:hover {
+  --ifm-button-border-color: var(--ifm-color-primary);
+  --ifm-button-color: var(--ifm-color-primary);
+  background: var(--lxm-surface-bg);
+}
+
+/* 卡片：tonal 表面，hover 仅描边反馈 */
 .card {
-  border-radius: 12px;
+  border-radius: 16px;
   border: 1px solid var(--lxm-card-border);
-  transition: all 0.3s ease;
+  background: var(--lxm-card-bg);
+  transition: border-color 0.18s ease;
+  box-shadow: none;
 }
 
 .card:hover {
-  border-color: rgba(74, 222, 128, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(74, 222, 128, 0.35);
+  transform: none;
+  box-shadow: none;
 }
 
 /* 文档侧边栏 */
@@ -127,23 +161,23 @@
 
 /* 代码块 */
 .theme-code-block {
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  box-shadow: none;
 }
 
 /* 提示框 */
 .alert {
-  border-radius: 10px;
+  border-radius: 14px;
   border-left-width: 4px;
 }
 
 /* 表格 */
 table {
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-/* 滚动条美化 */
+/* 滚动条 */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -154,12 +188,12 @@ table {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(127, 127, 127, 0.25);
-  border-radius: 4px;
+  background: rgba(127, 127, 127, 0.3);
+  border-radius: 100px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(127, 127, 127, 0.4);
+  background: rgba(127, 127, 127, 0.45);
 }
 
 /* 容器高度修复 */

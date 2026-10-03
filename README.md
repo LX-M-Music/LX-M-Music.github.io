@@ -1,95 +1,95 @@
-# LX-M Doc
+# LX-M Music 文档站
 
-> LX-M Music 桌面版官方文档站点
+> LX-M Music 桌面版官方文档与下载站点
 
-[![Deploy](https://github.com/Miao-moe/lx-m-doc/actions/workflows/deploy.yml/badge.svg)](https://github.com/Miao-moe/lx-m-doc/actions/workflows/deploy.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Deploy](https://github.com/LX-M-Music/LX-M-Music.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/LX-M-Music/LX-M-Music.github.io/actions/workflows/deploy.yml)
+[![Auto Update](https://github.com/LX-M-Music/LX-M-Music.github.io/actions/workflows/auto-update.yml/badge.svg)](https://github.com/LX-M-Music/LX-M-Music.github.io/actions/workflows/auto-update.yml)
 
-## 🌐 在线预览
+## 在线访问
 
-**https://miao-moe.github.io/lx-m-doc/**
+**https://lx-m-music.github.io/**
 
-## ✨ 特性
+## 特性
 
-- 📖 基于 [Docusaurus](https://docusaurus.io/) 构建的现代化文档站点
-- 🎨 深色主题 + 绿色强调色，Fluent UI 风格
-- 🚀 多镜像下载测速，自动选择最优 GitHub 下载链路
-- 📱 完全响应式，支持移动端浏览
-- 🔍 内置全文搜索
-- ⚡ GitHub Actions 自动部署
+- 基于 [Docusaurus](https://docusaurus.io/)，Flutter / Material 3 扁平视觉风格，深色优先、亮色同样适配
+- 下载页镜像体系全自动：
+  - 每日定时任务从 moretools.app、github.akams.cn 聚合站爬取加速节点，刷新内置清单
+  - 页面运行时再经公共 CORS 代理实时发现新节点（24 小时会话缓存）
+  - 每位访客打开页面即用**自己的网络**并发实测全部节点，自动预选最快
+- 文档热更新：每日自动同步应用仓库的 README / FAQ / 更新日志 / Win7 说明，有变更自动重新部署
+- 全站图标使用应用真实图标（Windows 平台为原始 ICO 文件），无 emoji 图标
+- 内置全文搜索，完全响应式
 
-## 🛠️ 本地开发
+## 本地开发
 
 ```bash
-# 克隆仓库
-git clone https://github.com/Miao-moe/lx-m-doc.git
-cd lx-m-doc
-
-# 安装依赖
+git clone https://github.com/LX-M-Music/LX-M-Music.github.io.git
+cd LX-M-Music.github.io
 npm install
-
-# 启动开发服务器
-npm run start
-
-# 构建
-npm run build
-
-# 本地预览构建产物
-npm run serve
+npm run start   # 开发服务器
+npm run build   # 产物输出到 build/
+npm run serve   # 本地预览构建产物
 ```
 
-## 🚀 一键部署
+## 自动更新流水线
+
+| 工作流 | 触发 | 作用 |
+| --- | --- | --- |
+| `deploy.yml` | push 到 main | 构建并部署 GitHub Pages（构建前自动刷新镜像清单） |
+| `auto-update.yml` | 每日 UTC 21:20 / 手动 | 刷新镜像清单 + 同步上游文档，有变更自动提交触发部署 |
+
+因此正常情况下**无需任何人工干预**：应用仓库文档更新 → 次日文档站自动跟进；镜像聚合站列表变化 → 内置清单每日刷新 + 页面运行时兜底。
+
+## 部署到国内服务器
+
+`npm run build` 的产物是纯静态文件（`build/` 目录），无任何外部 CDN / 字体依赖，可部署到任意国内机器：
 
 ```bash
-# 赋予执行权限
-chmod +x deploy.sh
-
-# 运行部署脚本
-./deploy.sh
+npm run build
+# 将 build/ 目录同步到服务器，例如：
+rsync -avz build/ user@server:/var/www/lx-m-doc/
 ```
 
-脚本支持以下部署方式：
-1. **GitHub Pages** - 推送到 gh-pages 分支
-2. **远程服务器** - 通过 rsync/scp 部署
-3. **本地预览** - 构建后启动 serve
+Nginx 参考配置：
 
-## 📁 文档结构
-
-```
-docs/
-├── desktop/
-│   ├── index.md              # 首页/快速开始
-│   ├── custom-source.md      # 自定义音源
-│   ├── ext-source-plugin.md  # 扩展音源插件
-│   ├── cookie-sync.md        # Cookie 同步
-│   ├── datapath.md           # 数据存储路径
-│   ├── use-source-code.md    # 源码使用
-│   ├── license.md            # 许可协议
-│   └── faq/                  # 常见问题
-│       ├── index.md
-│       ├── playlist.md
-│       ├── hotkey.md
-│       └── antivirus.md
-```
-
-## 🎨 主题定制
-
-主题色采用绿色系（`#4ade80`），与 LX-M Music 品牌色保持一致。
-
-```css
-:root {
-  --ifm-color-primary: #4ade80;
-  --ifm-color-primary-dark: #22c55e;
-  --ifm-color-primary-darker: #16a34a;
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    root /var/www/lx-m-doc;
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
 }
 ```
 
-## 📄 许可
+国内访问时，下载页的 GitHub Release 信息获取与镜像发现均设计了失败兜底（内置清单 + 直连 Release 链接），即使 GitHub 不可达页面也能正常浏览与下载。
+
+## 目录结构
+
+```
+docs/
+├── desktop/          # 手写教程文档
+└── upstream/         # 自动同步的应用仓库文档（勿手改，每日刷新）
+    ├── readme.md
+    ├── faq.md
+    ├── changelog.md
+    └── win7-compatibility.md
+scripts/
+├── fetch-mirrors.mjs   # 构建前爬取聚合站镜像清单 -> src/data/mirrors.json
+└── sync-app-docs.mjs   # 同步应用仓库文档 -> docs/upstream/
+src/
+├── components/         # 页面组件
+├── data/               # 站点数据（镜像清单、下载配置、首页内容）
+└── pages/              # 首页与下载页
+```
+
+## 许可
 
 本项目文档内容采用 [MIT](LICENSE) 协议。
 
-## 🙏 致谢
+## 致谢
 
 - [Docusaurus](https://docusaurus.io/) - 文档站点生成器
 - [LX Music](https://github.com/lyswhut/lx-music-desktop) - 原版项目
-- [LX-M Music](https://github.com/Miao-moe/lx-m_lx-Miao-moe-music-desktop) - 本项目对应的桌面端软件
+- [LX-M Music](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop) - 本项目对应的桌面端软件

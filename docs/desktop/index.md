@@ -12,7 +12,7 @@ sidebar_position: 1
 |------|------|------|
 | **主仓库（上游）** | [lyswhut/lx-music-desktop](https://github.com/lyswhut/lx-music-desktop) | 原版，由落雪无痕维护，基于 Electron + Vue 3 |
 | **参考仓库（移动版）** | [WalnutBai/lx-lxnetease-music-mobile-pro](https://github.com/WalnutBai/lx-lxnetease-music-mobile-pro) | Cookie 同步、Gitcode 音源等思路来源 |
-| **本项目（LX-M）** | [Miao-moe/lx-m_lx-Miao-moe-music-desktop](https://github.com/Miao-moe/lx-m_lx-Miao-moe-music-desktop) | 本仓库，增量开发 |
+| **本项目（LX-M）** | [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop) | 本仓库，增量开发 |
 
 ## 新增功能概览
 
@@ -73,7 +73,7 @@ sidebar_position: 1
 
 ```bash
 # 克隆仓库
-git clone https://github.com/Miao-moe/lx-m_lx-Miao-moe-music-desktop.git
+git clone https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop.git
 cd lx-m_lx-Miao-moe-music-desktop
 
 # 安装依赖

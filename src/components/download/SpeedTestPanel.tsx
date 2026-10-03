@@ -10,8 +10,8 @@ function badgeClass(result: SpeedResult): string {
 }
 
 function badgeText(result: SpeedResult): string {
-  if (result.state === 'pending') return '⏳ 待测';
-  if (result.state === 'error' || result.latency === null) return '❌ 不可用';
+  if (result.state === 'pending') return '待测';
+  if (result.state === 'error' || result.latency === null) return '不可用';
   return `${result.latency}ms · ${latencyGrade(result.latency)}`;
 }
 
@@ -27,12 +27,14 @@ export default function SpeedTestPanel({
   isTesting,
   bestId,
   onRetest,
+  discoveredCount,
 }: {
   mirrors: MirrorConfig[];
   results: SpeedResult[];
   isTesting: boolean;
   bestId: string | null;
   onRetest: () => void;
+  discoveredCount: number;
 }) {
   const done = results.filter(
     r => r.state === 'done' || r.state === 'error',
@@ -45,9 +47,11 @@ export default function SpeedTestPanel({
     <div className={styles.panel}>
       <div className={styles.header}>
         <div>
-          <h3 className={styles.title}>🚀 镜像测速</h3>
+          <h3 className={styles.title}>镜像测速</h3>
           <p className={styles.note}>
             由您的浏览器基于本机网络实时探测，结果因地区与运营商而异；测速完成后自动预选最快节点，您也可以在下方卡片中手动切换。
+            {discoveredCount > 0 &&
+              ` 本页已实时发现 ${discoveredCount} 个新节点，内置清单每日自动刷新。`}
           </p>
         </div>
         <div className={styles.actions}>
@@ -59,7 +63,7 @@ export default function SpeedTestPanel({
             className="button button--primary button--sm"
             onClick={onRetest}
             disabled={isTesting}>
-            {isTesting ? '🔄 测速中…' : done > 0 ? '🔄 重新测速' : '🚀 开始测速'}
+            {isTesting ? '测速中…' : done > 0 ? '重新测速' : '开始测速'}
           </button>
         </div>
       </div>
@@ -73,7 +77,7 @@ export default function SpeedTestPanel({
               title={result.id}>
               <span className={styles.chipName}>{result.id}</span>
               <span className={`${styles.badge} ${badgeClass(result)}`}>
-                {isBest && '🏆 '}
+                {isBest && <span className={styles.bestTag}>最快</span>}
                 {badgeText(result)}
               </span>
             </div>

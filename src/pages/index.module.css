@@ -1,71 +1,40 @@
-.heroBanner {
-  padding: 6rem 0 4rem;
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
+/* 首页 —— Flutter / Material 3 扁平风 */
+
+.hero {
+  padding: 6.5rem 0 5.5rem;
+  background: var(--ifm-background-color);
+  border-bottom: 1px solid var(--lxm-surface-border);
 }
 
-.heroBanner::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.heroBanner::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.06) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.heroContent {
+.heroInner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 4rem;
-  position: relative;
-  z-index: 1;
 }
 
 .heroText {
   flex: 1;
-  max-width: 600px;
+  max-width: 620px;
 }
 
 .heroTitle {
-  font-size: 3.5rem;
+  font-size: 3.6rem;
   font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.1rem;
+  color: var(--ifm-font-color-base);
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
-  color: rgba(203, 213, 225, 0.85);
+  font-size: 1.2rem;
+  color: var(--ifm-color-emphasis-700);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
-.heroBadges {
+.badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -75,28 +44,20 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 0.8rem;
-  background: rgba(74, 222, 128, 0.1);
-  border: 1px solid rgba(74, 222, 128, 0.2);
-  border-radius: 20px;
+  padding: 0.42rem 1rem;
+  background: var(--lxm-primary-container);
+  border: 1px solid var(--lxm-primary-container-border);
+  border-radius: 100px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #4ade80;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.badge:hover {
-  background: rgba(74, 222, 128, 0.2);
-  border-color: rgba(74, 222, 128, 0.4);
+  color: var(--lxm-on-primary-container);
 }
 
 .buttons {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .heroVisual {
@@ -104,60 +65,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--lxm-primary-container);
+  border: 1px solid var(--lxm-primary-container-border);
+  border-radius: 56px;
+  padding: 24px;
 }
 
-.heroLogoWrapper {
-  position: relative;
-  width: 200px;
-  height: 200px;
+.heroIcon {
+  display: block;
+  width: 176px;
+  height: 176px;
+  border-radius: 40px;
 }
 
-.heroLogoGlow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-}
-
-.heroLogo {
-  position: relative;
-  z-index: 1;
-  width: 200px;
-  height: 200px;
-  filter: drop-shadow(0 8px 32px rgba(74, 222, 128, 0.3));
-}
-
-.heroWave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  line-height: 0;
-}
-
-.heroWave svg {
-  width: 100%;
-  height: auto;
-}
-
-/* Features */
+/* 特性 */
 .featuresSection {
   padding: 5rem 0;
   background: var(--ifm-background-color);
@@ -166,46 +87,50 @@
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
-/* Comparison */
+/* 版本对比 —— Material 3 数据表 */
 .comparisonSection {
   padding: 5rem 0;
   background: var(--lxm-section-alt-bg);
+  border-top: 1px solid var(--lxm-surface-border);
+  border-bottom: 1px solid var(--lxm-surface-border);
 }
 
-.comparisonTableWrapper {
+.tableWrapper {
   overflow-x: auto;
-  border-radius: 12px;
+  border-radius: 20px;
   border: 1px solid var(--lxm-card-border);
+  background: var(--lxm-card-bg);
 }
 
-.comparisonTable {
+.table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
 }
 
-.comparisonTable th,
-.comparisonTable td {
+.table th,
+.table td {
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--lxm-surface-border);
 }
 
-.comparisonTable th {
-  background: rgba(74, 222, 128, 0.08);
-  font-weight: 600;
-  color: var(--ifm-color-primary);
+.table th {
+  background: var(--lxm-surface-bg);
+  font-weight: 700;
+  color: var(--ifm-font-color-base);
   text-align: left;
+  white-space: nowrap;
 }
 
-.comparisonTable tr:last-child td {
+.table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.comparisonTable tbody tr:hover td {
-  background: rgba(74, 222, 128, 0.03);
+.table tbody tr:hover td {
+  background: var(--lxm-surface-bg);
 }
 
 .center {
@@ -241,9 +166,9 @@
 }
 
 .ctaCard {
-  background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, rgba(34, 197, 94, 0.04) 100%);
-  border: 1px solid rgba(74, 222, 128, 0.15);
-  border-radius: 20px;
+  background: var(--lxm-primary-container);
+  border: 1px solid var(--lxm-primary-container-border);
+  border-radius: 32px;
   padding: 3rem;
   text-align: center;
   max-width: 700px;
@@ -253,18 +178,19 @@
 .ctaTitle {
   font-size: 1.8rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
   margin-bottom: 1rem;
 }
 
 .ctaText {
-  color: var(--ifm-color-emphasis-600);
+  color: var(--ifm-color-emphasis-700);
   font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 @media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem 1rem;
+  .hero {
+    padding: 4rem 0 3.5rem;
   }
 
   .featuresGrid {
@@ -277,29 +203,29 @@
     grid-template-columns: 1fr;
   }
 
-  .heroContent {
-    flex-direction: column;
+  .heroInner {
+    flex-direction: column-reverse;
     text-align: center;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .heroTitle {
     font-size: 2.5rem;
   }
 
-  .heroLogoWrapper,
-  .heroLogo {
-    width: 150px;
-    height: 150px;
+  .heroVisual {
+    padding: 14px;
+    border-radius: 36px;
   }
 
-  .heroLogoGlow {
-    width: 200px;
-    height: 200px;
+  .heroIcon {
+    width: 120px;
+    height: 120px;
+    border-radius: 26px;
   }
 
   .buttons,
-  .heroBadges {
+  .badges {
     justify-content: center;
   }
 }

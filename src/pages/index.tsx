@@ -15,18 +15,21 @@ import {
 } from '@site/src/data/homepage';
 import styles from './index.module.css';
 
+const APP_REPO_URL =
+  'https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop';
+
 function HeroSection() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero', styles.heroBanner)}>
+    <header className={styles.hero}>
       <div className="container">
-        <div className={styles.heroContent}>
+        <div className={styles.heroInner}>
           <div className={styles.heroText}>
             <Heading as="h1" className={styles.heroTitle}>
               {siteConfig.title}
             </Heading>
             <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
-            <div className={styles.heroBadges}>
+            <div className={styles.badges}>
               {HERO_BADGES.map(badge => (
                 <span key={badge} className={styles.badge}>
                   {badge}
@@ -35,55 +38,28 @@ function HeroSection() {
             </div>
             <div className={styles.buttons}>
               <Link className="button button--primary button--lg" to="/desktop/">
-                📖 阅读文档
+                阅读文档
               </Link>
               <Link className="button button--secondary button--lg" to="/download">
-                ⬇️ 立即下载
+                立即下载
               </Link>
               <Link
                 className="button button--outline button--lg"
-                href="https://github.com/Miao-moe/lx-m_lx-Miao-moe-music-desktop">
-                ⭐ GitHub
+                href={APP_REPO_URL}>
+                GitHub
               </Link>
             </div>
           </div>
           <div className={styles.heroVisual}>
-            <div className={styles.heroLogoWrapper}>
-              <div className={styles.heroLogoGlow} />
-              <svg
-                className={styles.heroLogo}
-                viewBox="0 0 120 120"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true">
-                <rect width="120" height="120" rx="24" fill="url(#grad1)" />
-                <path
-                  d="M40 85V45L85 35V75"
-                  stroke="white"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="55" cy="75" r="10" fill="white" />
-                <circle cx="85" cy="65" r="10" fill="white" />
-                <defs>
-                  <linearGradient id="grad1" x1="0" y1="0" x2="120" y2="120">
-                    <stop offset="0%" stopColor="#4ade80" />
-                    <stop offset="100%" stopColor="#22c55e" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+            <img
+              src="/img/app-icon-512.png"
+              alt="LX-M Music 应用图标"
+              className={styles.heroIcon}
+              width="192"
+              height="192"
+            />
           </div>
         </div>
-      </div>
-      <div className={styles.heroWave}>
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path
-            d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="var(--ifm-background-color)"
-          />
-        </svg>
       </div>
     </header>
   );
@@ -108,13 +84,9 @@ function FeaturesSection() {
 }
 
 function ComparisonCellContent({cell}: {cell: ComparisonCell}) {
-  if (cell.tone === 'no') return <>❌</>;
-  if (cell.tone === 'partial') return <>⚠️ {cell.text}</>;
-  return (
-    <>
-      ✅{cell.text ? ` ${cell.text}` : ''}
-    </>
-  );
+  if (cell.tone === 'no') return <>—</>;
+  if (cell.tone === 'partial') return <>部分 · {cell.text}</>;
+  return <>{cell.text ?? '支持'}</>;
 }
 
 function ComparisonSection() {
@@ -125,8 +97,8 @@ function ComparisonSection() {
           title="版本对比"
           subtitle="LX-M 与原版、移动版的差异"
         />
-        <div className={styles.comparisonTableWrapper}>
-          <table className={styles.comparisonTable}>
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>特性</th>
@@ -167,10 +139,10 @@ function CTASection() {
           </p>
           <div className={styles.buttons}>
             <Link className="button button--primary button--lg" to="/download">
-              ⬇️ 下载软件
+              下载软件
             </Link>
             <Link className="button button--outline button--lg" to="/desktop/">
-              📖 查看文档
+              查看文档
             </Link>
           </div>
         </div>
