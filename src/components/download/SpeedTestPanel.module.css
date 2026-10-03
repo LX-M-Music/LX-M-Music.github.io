@@ -1,9 +1,11 @@
 .panel {
-  background: var(--lxm-card-bg);
-  border: 1px solid var(--lxm-card-border);
+  background: var(--lxm-glass-bg-solid);
+  border: 1px solid var(--lxm-glass-border);
   border-radius: 20px;
   padding: 1.5rem;
   margin: 2rem 0 1rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .header {

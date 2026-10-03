@@ -118,18 +118,38 @@ function sanitizeMdx(md) {
   return lines.join('\n');
 }
 
-function page(title, position, description, body) {
+function page(title, position, description, body, note) {
   return `---
 title: "${title}"
 description: "${description}"
 sidebar_position: ${position}
 ---
 
-> 本页由脚本自动同步自应用仓库 [${OWNER}/${REPO}](https://github.com/${OWNER}/${REPO})，请勿直接编辑；内容以下游更新为准。
+${note}
 
 ${sanitizeMdx(rewriteLinks(body))}
 `;
 }
+
+/** 应用当前版本号（package.json），用于同步说明展示 */
+async function fetchAppVersion() {
+  try {
+    const raw = await fetchSource('package.json');
+    const pkg = JSON.parse(raw);
+    return typeof pkg.version === 'string' ? pkg.version : null;
+  } catch {
+    return null;
+  }
+}
+
+const appVersion = await fetchAppVersion();
+const syncedAt = new Date(Date.now() + 8 * 3600 * 1000)
+  .toISOString()
+  .replace('T', ' ')
+  .slice(0, 16);
+const NOTE = `> 本页由脚本自动同步自应用仓库 [${OWNER}/${REPO}](https://github.com/${OWNER}/${REPO})${
+  appVersion ? `（当前版本 v${appVersion}）` : ''
+} · 同步时间 ${syncedAt}（UTC+8）。请勿直接编辑，内容以下游更新为准。`;
 
 const SOURCES = [
   {
@@ -166,7 +186,7 @@ for (const source of SOURCES) {
     const body = await fetchSource(source.file);
     writeFileSync(
       path.join(outDir, source.output),
-      page(source.title, synced + 1, source.description, body),
+      page(source.title, synced + 1, source.description, body, NOTE),
     );
     synced += 1;
     console.log(`已同步 ${source.file} -> docs/upstream/${source.output}`);

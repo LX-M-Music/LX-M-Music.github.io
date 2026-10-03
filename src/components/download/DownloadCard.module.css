@@ -1,11 +1,13 @@
 .card {
-  background: var(--lxm-card-bg);
-  border: 1px solid var(--lxm-card-border);
+  background: var(--lxm-glass-bg-solid);
+  border: 1px solid var(--lxm-glass-border);
   border-radius: 20px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   transition: border-color 0.18s ease;
 }
 

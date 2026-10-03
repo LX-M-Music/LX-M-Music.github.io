@@ -6,6 +6,7 @@
  *  2. 内置清单 src/data/mirrors.json —— 由每日定时任务从聚合站爬取刷新；
  *  3. 运行时发现 —— 访客浏览器经公共 CORS 代理抓取聚合站，24h 会话缓存。
  */
+import {marked} from 'marked';
 import mirrorHosts from './mirrors.json';
 
 export const GITHUB_OWNER = 'LX-M-Music';
@@ -317,6 +318,9 @@ export interface ReleaseInfo {
   name: string;
   published_at: string;
   html_url: string;
+  /** 更新说明（Markdown），来自 GitHub Release */
+  body?: string;
+  prerelease?: boolean;
   assets: ReleaseAsset[];
 }
 
@@ -333,6 +337,28 @@ export async function fetchLatestRelease(): Promise<ReleaseInfo> {
     );
   }
   return (await res.json()) as ReleaseInfo;
+}
+
+/** 拉取最近的发布版本（含旧版本），按发布时间倒序 */
+export async function fetchReleases(perPage = 10): Promise<ReleaseInfo[]> {
+  const res = await fetch(
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases?per_page=${perPage}`,
+    {headers: {Accept: 'application/vnd.github+json'}},
+  );
+  if (!res.ok) {
+    throw new Error(
+      res.status === 403
+        ? 'GitHub API 请求次数已达上限，请稍后重试'
+        : `GitHub API 返回 HTTP ${res.status}`,
+    );
+  }
+  return (await res.json()) as ReleaseInfo[];
+}
+
+/** 把 Release 更新说明渲染为 HTML（内容来自本仓库官方发布页） */
+export function renderReleaseNotes(body: string): string {
+  const stripped = body.replace(/<script[\s\S]*?<\/script>/gi, '');
+  return marked.parse(stripped, {async: false, gfm: true, breaks: true});
 }
 
 export interface PlatformConfig {

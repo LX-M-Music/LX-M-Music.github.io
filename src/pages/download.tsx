@@ -4,6 +4,10 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import SpeedTestPanel from '@site/src/components/download/SpeedTestPanel';
 import DownloadCard from '@site/src/components/download/DownloadCard';
+import MediaBackdrop, {
+  MOEZ_IMAGE,
+  YCY_IMAGE,
+} from '@site/src/components/MediaBackdrop';
 import {
   INSTALL_GUIDE,
   PLATFORMS,
@@ -13,11 +17,12 @@ import {
   type SpeedResult,
   bestMirrorId,
   discoverRuntimeMirrors,
-  fetchLatestRelease,
+  fetchReleases,
   formatDate,
   loadMirrors,
   mergeDiscoveredMirrors,
   probeAllMirrors,
+  renderReleaseNotes,
 } from '@site/src/data/download';
 import styles from './download.module.css';
 
@@ -34,8 +39,9 @@ export default function DownloadPage(): ReactNode {
   const initialMirrors = useMemo(loadMirrors, []);
   const mirrorsRef = useRef<MirrorConfig[]>(initialMirrors);
   const [mirrors, setMirrors] = useState<MirrorConfig[]>(initialMirrors);
-  const [release, setRelease] = useState<ReleaseInfo | null>(null);
-  const [releaseError, setReleaseError] = useState<string | null>(null);
+  const [releases, setReleases] = useState<ReleaseInfo[] | null>(null);
+  const [releasesError, setReleasesError] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [speedResults, setSpeedResults] = useState<SpeedResult[]>(() =>
     pendingResults(initialMirrors),
   );
@@ -116,22 +122,43 @@ export default function DownloadPage(): ReactNode {
     };
   }, [probeTargets]);
 
+  // 拉取最近发布（含旧版本），供版本切换与更新说明展示
   useEffect(() => {
-    fetchLatestRelease()
-      .then(setRelease)
+    let alive = true;
+    fetchReleases(10)
+      .then(list => {
+        if (!alive) return;
+        setReleases(list);
+        setSelectedTag(list[0]?.tag_name ?? null);
+      })
       .catch((err: unknown) => {
-        setReleaseError(err instanceof Error ? err.message : String(err));
+        if (!alive) return;
+        setReleasesError(err instanceof Error ? err.message : String(err));
       });
+    return () => {
+      alive = false;
+    };
   }, []);
 
   const best = bestMirrorId(speedResults);
+  const selectedRelease =
+    releases?.find(release => release.tag_name === selectedTag) ??
+    releases?.[0] ??
+    null;
 
   return (
     <Layout
       title="软件下载"
-      description="LX-M Music 桌面版下载 - 自动发现多个加速镜像，基于您的网络实测并预选最快节点">
+      description="LX-M Music 桌面版下载 - 自动发现多个加速镜像，基于您的网络实测并预选最快节点，支持历史版本下载">
       <main className={styles.page}>
         <div className={styles.hero}>
+          <MediaBackdrop
+            className={styles.heroBackdrop}
+            sources={[
+              {kind: 'image', url: MOEZ_IMAGE},
+              {kind: 'image', url: YCY_IMAGE},
+            ]}
+          />
           <div className="container">
             <Heading as="h1" className={styles.title}>
               软件下载
@@ -143,20 +170,70 @@ export default function DownloadPage(): ReactNode {
         </div>
 
         <div className="container">
-          {release && (
-            <div className={styles.versionInfo}>
-              <div className={styles.versionBadge}>
-                <span className={styles.versionTag}>{release.tag_name}</span>
-                <span className={styles.versionDate}>
-                  发布于 {formatDate(release.published_at)}
-                </span>
+          {/* 版本选择 + 更新说明 */}
+          <div className={styles.releasePanel}>
+            <div className={styles.releaseHeader}>
+              <div className={styles.releaseSelector}>
+                <label htmlFor="release-select">选择版本</label>
+                <select
+                  id="release-select"
+                  className={styles.releaseSelect}
+                  value={selectedTag ?? ''}
+                  onChange={event => setSelectedTag(event.target.value)}
+                  disabled={!releases}>
+                  {(releases ?? []).map((release, idx) => (
+                    <option key={release.tag_name} value={release.tag_name}>
+                      {release.tag_name}
+                      {idx === 0 ? '（最新）' : ''}
+                      {release.prerelease ? '（预发布）' : ''}
+                      {` · ${formatDate(release.published_at)}`}
+                    </option>
+                  ))}
+                  {!releases && <option value="">正在获取版本…</option>}
+                </select>
               </div>
+              {selectedRelease && (
+                <div className={styles.releaseMeta}>
+                  {selectedRelease.prerelease && (
+                    <span className={styles.preTag}>预发布</span>
+                  )}
+                  <span className={styles.releaseDate}>
+                    发布于 {formatDate(selectedRelease.published_at)}
+                  </span>
+                  <a
+                    href={selectedRelease.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.releaseLink}>
+                    Release 详情
+                  </a>
+                </div>
+              )}
+            </div>
+            {selectedRelease && (
+              <div
+                className={`${styles.releaseNotes} markdown`}
+                // 内容来自官方 GitHub Release 页，已去除 script 标签
+                dangerouslySetInnerHTML={{
+                  __html: renderReleaseNotes(selectedRelease.body ?? ''),
+                }}
+              />
+            )}
+            {!selectedRelease && !releasesError && (
+              <div className={styles.notesEmpty}>正在获取更新说明…</div>
+            )}
+          </div>
+
+          {releasesError && (
+            <div className={styles.errorBox}>
+              <p>获取版本信息失败：{releasesError}</p>
+              <p>您可以尝试直接访问 GitHub Release 页面下载：</p>
               <a
-                href={release.html_url}
+                href={RELEASES_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.releaseLink}>
-                查看 Release 详情
+                className="button button--primary">
+                前往 GitHub Release
               </a>
             </div>
           )}
@@ -170,27 +247,13 @@ export default function DownloadPage(): ReactNode {
             onRetest={() => void runSpeedTest()}
           />
 
-          {releaseError && (
-            <div className={styles.errorBox}>
-              <p>获取版本信息失败：{releaseError}</p>
-              <p>您可以尝试直接访问 GitHub Release 页面下载：</p>
-              <a
-                href={RELEASES_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button button--primary">
-                前往 GitHub Release
-              </a>
-            </div>
-          )}
-
-          {!releaseError && (
+          {!releasesError && (
             <div className={styles.platformsGrid}>
               {PLATFORMS.map(platform => (
                 <DownloadCard
                   key={platform.id}
                   platform={platform}
-                  release={release}
+                  release={selectedRelease}
                   mirrors={mirrors}
                   results={speedResults}
                   selectedId={picks[platform.id] ?? best ?? 'github'}

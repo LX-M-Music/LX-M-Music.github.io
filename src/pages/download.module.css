@@ -1,65 +1,119 @@
-/* 下载页 —— Flutter / Material 3 扁平风 */
+/* 下载页 —— 媒体横幅 + 玻璃拟态 */
 
 .page {
   min-height: 100vh;
 }
 
 .hero {
-  padding: 4.5rem 0 3rem;
+  position: relative;
+  padding: 5.5rem 0 4rem;
   text-align: center;
-  background: var(--lxm-section-alt-bg);
+  overflow: hidden;
   border-bottom: 1px solid var(--lxm-surface-border);
 }
 
+.heroBackdrop {
+  z-index: 0;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
 .title {
-  font-size: 2.6rem;
-  font-weight: 800;
+  font-size: 2.8rem;
+  font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 0.6rem;
+  color: var(--ifm-font-color-base);
+  text-shadow: 0 2px 24px rgba(7, 11, 20, 0.35);
 }
 
 .subtitle {
-  color: var(--ifm-color-emphasis-600);
+  color: var(--ifm-color-emphasis-800);
   font-size: 1.05rem;
   max-width: 640px;
   margin: 0 auto;
 }
 
-.versionInfo {
+/* 版本面板：版本选择 + 更新说明 */
+.releasePanel {
+  margin: 2.5rem 0 0;
+  padding: 1.5rem;
+  background: var(--lxm-glass-bg-solid);
+  border: 1px solid var(--lxm-glass-border);
+  border-radius: 22px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.releaseHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem 0 0;
-  padding: 1rem 1.5rem;
-  background: var(--lxm-card-bg);
-  border: 1px solid var(--lxm-card-border);
-  border-radius: 16px;
+  margin-bottom: 1rem;
 }
 
-.versionBadge {
+.releaseSelector {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.versionTag {
-  font-weight: 700;
-  color: var(--ifm-color-primary);
-  font-size: 1.05rem;
-  font-family: var(--ifm-font-family-monospace);
+.releaseSelector label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+  white-space: nowrap;
 }
 
-.versionDate {
+.releaseSelect {
+  min-width: 260px;
+  background: var(--lxm-surface-bg);
+  border: 1px solid var(--lxm-surface-border);
+  border-radius: 100px;
+  padding: 0.5rem 1.1rem;
+  color: var(--ifm-font-color-base);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.releaseSelect:focus {
+  outline: none;
+  border-color: rgba(74, 222, 128, 0.45);
+}
+
+.releaseMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.preTag {
+  padding: 0.14rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ifm-color-warning-dark);
+  background: rgba(250, 204, 21, 0.14);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.releaseDate {
   color: var(--ifm-color-emphasis-600);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .releaseLink {
   color: var(--ifm-color-primary);
   font-weight: 600;
+  font-size: 0.88rem;
   text-decoration: none;
   transition: opacity 0.15s;
 }
@@ -68,12 +122,74 @@
   opacity: 0.75;
 }
 
+.releaseNotes {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 1rem 1.2rem;
+  background: var(--lxm-surface-bg);
+  border: 1px solid var(--lxm-surface-border);
+  border-radius: 16px;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.releaseNotes h1,
+.releaseNotes h2,
+.releaseNotes h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0.9rem 0 0.5rem;
+}
+
+.releaseNotes h1:first-child,
+.releaseNotes h2:first-child,
+.releaseNotes h3:first-child {
+  margin-top: 0;
+}
+
+.releaseNotes p {
+  margin: 0.45rem 0;
+}
+
+.releaseNotes ul,
+.releaseNotes ol {
+  margin: 0.45rem 0;
+  padding-left: 1.4rem;
+}
+
+.releaseNotes li {
+  margin-bottom: 0.25rem;
+}
+
+.releaseNotes code {
+  background: var(--lxm-surface-bg);
+  border: 1px solid var(--lxm-surface-border);
+  border-radius: 6px;
+  padding: 0.05rem 0.4rem;
+}
+
+.releaseNotes a {
+  color: var(--ifm-color-primary);
+}
+
+.releaseNotes img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.notesEmpty {
+  color: var(--ifm-color-emphasis-600);
+  text-align: center;
+  padding: 1.2rem 0;
+  font-size: 0.9rem;
+}
+
 .errorBox {
   text-align: center;
   padding: 3rem;
   background: rgba(248, 113, 113, 0.08);
   border: 1px solid rgba(248, 113, 113, 0.2);
-  border-radius: 16px;
+  border-radius: 20px;
   margin: 2rem 0;
 }
 
@@ -119,8 +235,8 @@
 }
 
 .guideCard {
-  background: var(--lxm-card-bg);
-  border: 1px solid var(--lxm-card-border);
+  background: var(--lxm-glass-bg-solid);
+  border: 1px solid var(--lxm-glass-border);
   border-radius: 20px;
   padding: 1.5rem;
 }

@@ -1,13 +1,18 @@
 .card {
-  background: var(--lxm-card-bg);
-  border: 1px solid var(--lxm-card-border);
+  background: var(--lxm-glass-bg-solid);
+  border: 1px solid var(--lxm-glass-border);
   border-radius: 20px;
   padding: 1.75rem;
-  transition: border-color 0.18s ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .card:hover {
-  border-color: rgba(74, 222, 128, 0.35);
+  border-color: rgba(74, 222, 128, 0.4);
+  transform: translateY(-2px);
 }
 
 .icon {

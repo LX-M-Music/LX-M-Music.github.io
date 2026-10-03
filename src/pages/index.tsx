@@ -6,6 +6,11 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import SectionHeader from '@site/src/components/SectionHeader';
 import FeatureCard from '@site/src/components/FeatureCard';
+import MediaBackdrop, {
+  ACG_VIDEO,
+  MOEZ_IMAGE,
+  YCY_IMAGE,
+} from '@site/src/components/MediaBackdrop';
 import {
   COMPARISON_COLUMNS,
   COMPARISON_ROWS,
@@ -22,6 +27,14 @@ function HeroSection() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={styles.hero}>
+      <MediaBackdrop
+        className={styles.heroBackdrop}
+        sources={[
+          {kind: 'video', url: ACG_VIDEO},
+          {kind: 'image', url: MOEZ_IMAGE},
+          {kind: 'image', url: YCY_IMAGE},
+        ]}
+      />
       <div className="container">
         <div className={styles.heroInner}>
           <div className={styles.heroText}>
@@ -55,9 +68,10 @@ function HeroSection() {
               src="/img/app-icon-512.png"
               alt="LX-M Music 应用图标"
               className={styles.heroIcon}
-              width="192"
-              height="192"
+              width="168"
+              height="168"
             />
+            <span className={styles.heroVisualCaption}>LX-M Music 桌面版</span>
           </div>
         </div>
       </div>

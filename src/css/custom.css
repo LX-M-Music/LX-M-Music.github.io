@@ -31,6 +31,11 @@
   --lxm-primary-container: rgba(74, 222, 128, 0.12);
   --lxm-primary-container-border: rgba(74, 222, 128, 0.26);
   --lxm-on-primary-container: #86efac;
+
+  /* 玻璃拟态（覆盖在媒体背景上） */
+  --lxm-glass-bg: rgba(13, 20, 34, 0.5);
+  --lxm-glass-bg-solid: rgba(15, 23, 42, 0.72);
+  --lxm-glass-border: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme='light']:not(#\#):not(#\#) {
@@ -46,6 +51,10 @@
   --lxm-primary-container: rgba(34, 197, 94, 0.1);
   --lxm-primary-container-border: rgba(34, 197, 94, 0.3);
   --lxm-on-primary-container: #15803d;
+
+  --lxm-glass-bg: rgba(255, 255, 255, 0.62);
+  --lxm-glass-bg-solid: rgba(255, 255, 255, 0.8);
+  --lxm-glass-border: rgba(15, 23, 42, 0.1);
 }
 
 [data-theme='dark']:not(#\#):not(#\#) {
