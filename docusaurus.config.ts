@@ -81,7 +81,7 @@ const config: Config = {
       {name: 'description', content: 'LX-M Music 桌面版说明文档 - 扩展音源插件机制、Cookie同步、Fluent UI风格'},
     ],
     navbar: {
-      title: 'LX-M Music',
+      title: 'LX-M',
       logo: {
         alt: 'LX-M Music Logo',
         src: 'img/app-icon-256.png',

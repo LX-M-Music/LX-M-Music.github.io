@@ -6,6 +6,7 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import SectionHeader from '@site/src/components/SectionHeader';
 import FeatureCard from '@site/src/components/FeatureCard';
+import Typewriter from '@site/src/components/Typewriter';
 import MediaBackdrop, {
   ACG_VIDEO,
   MOEZ_IMAGE,
@@ -23,6 +24,15 @@ import styles from './index.module.css';
 const APP_REPO_URL =
   'https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop';
 
+const TYPING_PHRASES = [
+  '扩展音源插件机制',
+  '五平台 Cookie 同步',
+  '歌曲智能换源',
+  '七档音质解锁',
+  '无缝衔接播放',
+  '内置插件商店',
+];
+
 function HeroSection() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -38,9 +48,13 @@ function HeroSection() {
       <div className="container">
         <div className={styles.heroInner}>
           <div className={styles.heroText}>
+            <span className={styles.eyebrow}>开源 · 免费 · 桌面端</span>
             <Heading as="h1" className={styles.heroTitle}>
               {siteConfig.title}
             </Heading>
+            <div className={styles.heroTyping}>
+              <Typewriter phrases={TYPING_PHRASES} className={styles.typing} />
+            </div>
             <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
             <div className={styles.badges}>
               {HERO_BADGES.map(badge => (

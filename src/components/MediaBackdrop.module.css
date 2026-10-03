@@ -2,23 +2,25 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  /* 媒体加载失败/未加载时的底色，保证永远有可读背景 */
+  /* 媒体就绪前的底色，保证永远有可读背景 */
   background:
     radial-gradient(120% 90% at 80% 10%, rgba(74, 222, 128, 0.14) 0%, transparent 55%),
     linear-gradient(160deg, #0b1220 0%, #101a2b 55%, #0b1220 100%);
 }
 
-.media {
+.layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.9s ease;
+  /* 已加载的层保持可见：切换只在就绪层之间进行，永不露底 */
+  transition: opacity 1.1s ease;
+  will-change: opacity;
 }
 
-.mediaLoaded {
+.layerActive {
   opacity: 1;
 }
 
@@ -29,37 +31,24 @@
   background:
     linear-gradient(
       to right,
-      rgba(7, 11, 20, 0.82) 0%,
-      rgba(7, 11, 20, 0.55) 45%,
-      rgba(7, 11, 20, 0.35) 100%
+      rgba(7, 11, 20, 0.84) 0%,
+      rgba(7, 11, 20, 0.58) 45%,
+      rgba(7, 11, 20, 0.36) 100%
     ),
-    linear-gradient(to top, var(--ifm-background-color) 0%, transparent 26%),
-    rgba(7, 11, 20, 0.28);
+    linear-gradient(to top, var(--ifm-background-color) 0%, transparent 24%),
+    rgba(7, 11, 20, 0.26);
 }
 
-@media screen and (max-width: 768px) {
-  .mask {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(7, 11, 20, 0.72) 0%,
-        rgba(7, 11, 20, 0.6) 100%
-      ),
-      linear-gradient(to top, var(--ifm-background-color) 0%, transparent 20%);
-  }
-}
-
-/* 亮色主题：蒙版改为白纱，保证深色文字可读 */
 [data-theme='light'] .mask {
   background:
     linear-gradient(
       to right,
-      rgba(245, 248, 250, 0.88) 0%,
-      rgba(245, 248, 250, 0.6) 45%,
-      rgba(245, 248, 250, 0.38) 100%
+      rgba(246, 248, 250, 0.9) 0%,
+      rgba(246, 248, 250, 0.62) 45%,
+      rgba(246, 248, 250, 0.4) 100%
     ),
-    linear-gradient(to top, var(--ifm-background-color) 0%, transparent 26%),
-    rgba(245, 248, 250, 0.3);
+    linear-gradient(to top, var(--ifm-background-color) 0%, transparent 24%),
+    rgba(246, 248, 250, 0.32);
 }
 
 [data-theme='light'] .backdrop {
@@ -69,7 +58,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .media {
+  .layer {
     transition: none;
   }
 }

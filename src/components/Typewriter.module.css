@@ -1,0 +1,36 @@
+.wrapper {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.text {
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--ifm-color-primary);
+  animation: twinkle 1s steps(1) infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}

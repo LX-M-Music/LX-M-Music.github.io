@@ -1,8 +1,8 @@
-/* 首页 —— 媒体背景 + 玻璃拟态内容层 */
+/* 首页 —— 媒体背景 + 打字机 + 玻璃拟态 */
 
 .hero {
   position: relative;
-  padding: 9.5rem 0 8rem;
+  padding: 10rem 0 8.5rem;
   overflow: hidden;
 }
 
@@ -27,21 +27,50 @@
   max-width: 640px;
 }
 
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.95rem;
+  margin-bottom: 1.4rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--lxm-on-primary-container);
+  background: var(--lxm-primary-container);
+  border: 1px solid var(--lxm-primary-container-border);
+}
+
 .heroTitle {
-  font-size: 4rem;
+  font-size: 4.2rem;
   font-weight: 900;
-  line-height: 1.06;
+  line-height: 1.05;
   letter-spacing: -0.035em;
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.9rem;
+  background: linear-gradient(100deg, var(--ifm-font-color-base) 30%, var(--ifm-color-primary) 75%, var(--ifm-color-primary-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroTyping {
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--ifm-font-color-base);
-  text-shadow: 0 2px 24px rgba(7, 11, 20, 0.35);
+  margin-bottom: 1rem;
+  min-height: 1.6em;
+}
+
+.typing {
+  color: var(--ifm-color-primary);
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
-  color: var(--ifm-color-emphasis-800);
+  font-size: 1.12rem;
+  color: var(--ifm-color-emphasis-700);
   margin-bottom: 1.6rem;
-  line-height: 1.6;
+  line-height: 1.65;
+  max-width: 560px;
 }
 
 .badges {
@@ -54,13 +83,13 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.45rem 1.05rem;
+  padding: 0.42rem 1rem;
   background: var(--lxm-glass-bg);
   border: 1px solid var(--lxm-glass-border);
   border-radius: 100px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  color: var(--lxm-on-primary-container);
+  color: var(--ifm-color-emphasis-800);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -240,7 +269,16 @@
   }
 
   .heroTitle {
-    font-size: 2.6rem;
+    font-size: 2.7rem;
+  }
+
+  .heroTyping {
+    font-size: 1.2rem;
+  }
+
+  .heroSubtitle {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .buttons,
