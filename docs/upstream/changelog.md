@@ -4,7 +4,7 @@ description: "LX-M Music 版本更新日志，自动同步"
 sidebar_position: 3
 ---
 
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.9.1） · 同步时间 2026-10-04 07:54（UTC+8）。请勿直接编辑，内容以下游更新为准。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.9.1） · 同步时间 2026-10-05 07:59（UTC+8）。请勿直接编辑，内容以下游更新为准。
 
 # lx-music-desktop change log
 
