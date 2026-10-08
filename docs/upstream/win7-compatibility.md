@@ -4,7 +4,7 @@ description: "Win7/8 兼容版的构建与功能适配范围，自动同步"
 sidebar_position: 4
 ---
 
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.9.1） · 同步时间 2026-10-07 08:49（UTC+8）。请勿直接编辑，内容以下游更新为准。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.9.1） · 同步时间 2026-10-08 09:04（UTC+8）。请勿直接编辑，内容以下游更新为准。
 
 # Windows 7 兼容版
 

@@ -4,7 +4,7 @@ description: "LX-M Music 桌面版功能总览与构建指南，自动同步自�
 sidebar_position: 1
 ---
 
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.9.1） · 同步时间 2026-10-07 08:49（UTC+8）。请勿直接编辑，内容以下游更新为准。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.9.1） · 同步时间 2026-10-08 09:04（UTC+8）。请勿直接编辑，内容以下游更新为准。
 
 <p align="center"><img width="200" src="https://raw.githubusercontent.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop/master/doc/images/icon.png" alt="LX-M Music" /></p>
 
