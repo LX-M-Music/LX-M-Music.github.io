@@ -25,13 +25,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Refresh mirror list
+        run: node scripts/fetch-mirrors.mjs
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
 
       - name: Build website
-        run: npm run build
+        run: |
+          flutter pub get
+          flutter build web --release
+
+      - name: SPA fallback (404.html)
+        run: cp build/web/index.html build/web/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -41,7 +52,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          path: build/web
 
   deploy:
     environment:

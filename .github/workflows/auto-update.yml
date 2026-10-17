@@ -1,11 +1,12 @@
 name: Auto update mirrors & docs
 
-# 每日自动刷新：镜像清单（聚合站爬取）+ 上游文档同步（README/FAQ/CHANGELOG）
+# 每日自动刷新：镜像清单（聚合站爬取）+ 上游文档快照（README/FAQ/CHANGELOG/Win7）
 # 有变更时自动提交并推送，推送会触发 Deploy to GitHub Pages 完成重新部署。
+# 站点运行时还会直接从应用仓库拉取最新内容，此快照仅作兜底。
 
 on:
   schedule:
-    - cron: '20 21 * * *' # UTC 21:20 = 北京时间 5:20
+    - cron: '20 21 * * *'
   workflow_dispatch:
 
 permissions:
@@ -26,15 +27,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: Refresh mirror list
         run: node scripts/fetch-mirrors.mjs
 
-      - name: Sync upstream docs
+      - name: Sync upstream docs snapshots
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/sync-app-docs.mjs
 
       - name: Commit & push
@@ -45,6 +44,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
           else
-            git commit -m "chore(auto): refresh mirror list & upstream docs"
+            git commit -m "chore(auto): refresh mirror list & upstream docs snapshots"
             git push
           fi

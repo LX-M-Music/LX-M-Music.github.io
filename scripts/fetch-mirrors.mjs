@@ -1,5 +1,5 @@
 /**
- * 构建前抓取公共镜像聚合站的 GitHub 加速节点，生成 src/data/mirrors.json。
+ * 构建前抓取公共镜像聚合站的 GitHub 加速节点，生成 assets/data/mirrors.json。
  *
  * 数据来源（任一成功即可，多源合并去重）：
  *  1. moretools.app 的 github-proxy 页面 —— SSR HTML 中内嵌加速前缀列表；
@@ -13,7 +13,7 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const target = path.join(root, 'src', 'data', 'mirrors.json');
+const target = path.join(root, 'assets', 'data', 'mirrors.json');
 const TIMEOUT_MS = 20_000;
 const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
@@ -92,7 +92,7 @@ for (const result of sources) {
 
 try {
   const count = persist(merged);
-  console.log(`✅ src/data/mirrors.json 已更新：合并去重后 ${count} 个加速节点`);
+  console.log(`✅ assets/data/mirrors.json 已更新：合并去重后 ${count} 个加速节点`);
 } catch (err) {
   console.warn(`⚠️ ${err.message}`);
   if (existsSync(target)) {

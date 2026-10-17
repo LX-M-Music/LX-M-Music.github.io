@@ -1,20 +1,23 @@
-# Dependencies
-/node_modules
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+coverage/
+*.iml
 
-# Production
-/build
+# Node
+node_modules/
 
-# Generated files
-.docusaurus
-.cache-loader
+# 环境与临时
+.env
+*.log
+.tmp-*
 
-# Misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# IDE
+.idea/
+.vscode/
+.docusaurus/
