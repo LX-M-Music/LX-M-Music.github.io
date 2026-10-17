@@ -62,8 +62,10 @@
       position: fixed;
       inset: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 18px;
       background:
         radial-gradient(120% 90% at 80% 10%, rgba(74, 222, 128, 0.14) 0%, transparent 55%),
         linear-gradient(160deg, #0b1220 0%, #101a2b 55%, #0b1220 100%);
@@ -73,10 +75,33 @@
       letter-spacing: 0.08em;
       transition: opacity 0.4s ease;
     }
+
+    #splash .spinner {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid rgba(74, 222, 128, 0.2);
+      border-top-color: #4ade80;
+      animation: splash-spin 0.9s linear infinite;
+    }
+
+    #splash .hint {
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: rgba(148, 163, 184, 0.75);
+    }
+
+    @keyframes splash-spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-  <div id="splash">LX-M MUSIC</div>
+  <div id="splash">
+    <div class="spinner"></div>
+    <div>LX-M MUSIC</div>
+    <div class="hint">首次加载需要下载引擎与字体，请稍候…</div>
+  </div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

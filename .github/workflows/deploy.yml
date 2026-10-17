@@ -39,7 +39,7 @@ jobs:
       - name: Build website
         run: |
           flutter pub get
-          flutter build web --release
+          flutter build web --release --no-web-resources-cdn
 
       - name: SPA fallback (404.html)
         run: cp build/web/index.html build/web/404.html
