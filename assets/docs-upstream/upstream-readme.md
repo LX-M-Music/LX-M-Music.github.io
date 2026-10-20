@@ -1,4 +1,4 @@
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.1） · 同步时间 2026-10-19 07:20（UTC+8）。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.2） · 同步时间 2026-10-20 08:26（UTC+8）。
 
 <p align="center"><img width="200" src="./doc/images/icon.png" alt="LX-M Music"></p>
 
@@ -294,6 +294,7 @@ node --test tests/list-loading.electron.test.cjs
 | 播放记录上报 | [playHistoryReporter.ts](./src/renderer/utils/playHistoryReporter.ts) |
 | 桌面歌词 | [SettingDesktopLyric.vue](./src/renderer/views/Setting/components/SettingDesktopLyric.vue)、[App.vue](./src/renderer-lyric/App.vue) |
 | 插件商店与官方插件 | [安装管理](./src/main/modules/optionalPlugins/manager.ts)、[插件源码](./src/optional-plugins)、[构建与发布](./plugins/README.md) |
+| MusicFree 音源兼容 | [使用与兼容范围](./doc/musicfree-compatibility.md)、[统一自定义源导入管理](./src/renderer/views/Setting/components/UserApiModal.vue)、[隔离运行环境](./src/main/modules/musicFree) |
 
 <details>
 <summary><strong>开发者扩展音源加载器</strong></summary>
