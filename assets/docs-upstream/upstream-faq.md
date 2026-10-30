@@ -1,4 +1,4 @@
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.3） · 同步时间 2026-10-29 09:02（UTC+8）。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.3） · 同步时间 2026-10-30 09:07（UTC+8）。
 
 # Lx-m Music 常见问题
 
