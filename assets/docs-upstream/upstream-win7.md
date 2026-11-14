@@ -1,4 +1,4 @@
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.3） · 同步时间 2026-11-13 09:56（UTC+8）。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.3） · 同步时间 2026-11-14 09:29（UTC+8）。
 
 # Windows 7 兼容版
 
