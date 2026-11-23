@@ -1,4 +1,4 @@
-> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.10.3） · 同步时间 2026-11-22 09:24（UTC+8）。
+> 本页由脚本自动同步自应用仓库 [LX-M-Music/lx-m_lx-Miao-moe-music-desktop](https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop)（当前版本 v2.11.0） · 同步时间 2026-11-23 09:49（UTC+8）。
 
 <p align="center"><img width="200" src="./doc/images/icon.png" alt="LX-M Music"></p>
 
@@ -113,7 +113,9 @@ flowchart LR
 
 ### 插件商店
 
-入口：**设置 → 插件商店**。官方插件来自本仓库 GitHub `master` 分支。
+入口：**设置 → 插件商店**。官方插件来自本仓库 GitHub `master` 分支。可勾选「使用镜像源获取插件」，通过 GitHub 加速镜像获取插件目录与安装包；镜像不可用时自动回退官方源，安装包仍会校验 SHA-256。
+
+**自动加载插件：** 把 `.lxplugin`（或源码 `.zip`）放进应用根目录的 `Plugins` 文件夹，重启应用后会自动导入并启用；也可在插件商店点击「检测 Plugins 目录」立即扫描。同一文件不会重复导入，版本更高时会自动升级。手动卸载后，文件未变化则不会被自动装回。
 
 | 可选插件 | 主要功能 |
 | --- | --- |
@@ -135,7 +137,7 @@ flowchart LR
 - **动态商店：** 新插件、名称和介绍从线上目录读取；使用现有接口的插件可直接安装、更新，无需随每个插件升级主程序。
 - **保留配置：** 安装后可继续使用已有设置和预设；卸载会停止功能、移除文件，保留个人配置。
 - **离线使用：** 已安装的插件可离线使用。
-- **开发说明：** [官方插件的构建与发布](./plugins/README.md)。
+- **开发说明：** [官方插件的构建与发布](./plugins/README.md)、[独立开发工具包](#插件开发工具包lx-m-plugin-devkit)。
 
 ### 动画、歌词与播放设置
 
@@ -281,6 +283,36 @@ node --test tests/list-loading.electron.test.cjs
 - 歌单与封面缓存复用。
 
 </details>
+
+### 插件开发工具包（lx-m-plugin-devkit）
+
+插件商店中的插件可以用独立的工具包开发，不必修改主程序或下载本仓库。工具包是 [plugins/lx-m-plugin-devkit-1.0.0.zip](./plugins/lx-m-plugin-devkit-1.0.0.zip)，随本地发布一起提供，源码和完整说明位于 [developer-kit](./plugins/developer-kit/README.md)。
+
+| 项目 | 说明 |
+| --- | --- |
+| 使用要求 | 开发者需要 Node.js 22 或更新版本；工具已包含 ZIP 依赖，无需 `npm install` |
+| 包含内容 | `lx-plugin.cjs` 命令行、Vue / TypeScript 模板、接口类型、接口与格式文档、许可说明 |
+| 默认产物 | 源码 ZIP，即 `plugin.json` 加 `src/` 下的源码和资源，不是 `.lxplugin` 预编译包 |
+| 导入方式 | 设置 → 插件商店 → 导入插件，选择生成的 `.zip`，由内置编译器构建后加载，无需联网 |
+
+```bash
+# 在解压后的 developer-kit 目录内执行
+node lx-plugin.cjs init ../my-plugin
+node lx-plugin.cjs check ../my-plugin
+node lx-plugin.cjs pack ../my-plugin
+```
+
+| 命令 | 用途 |
+| --- | --- |
+| `init <新目录> [插件ID]` | 创建示例和编辑器配置，默认以文件夹名为 ID |
+| `check <目录或.zip>` | 校验入口、资源、路径和 ZIP 清单，不运行插件代码 |
+| `pack <目录> [输出.zip]` | 生成校验清单并打包，默认输出到目录旁的同名 ZIP |
+| `unpack <输入.zip> <新目录>` | 校验并解包，用于修改已有插件 |
+| `vendor <目录> [main|engine]` | 收集已安装的第三方依赖 |
+
+Windows 上也可以把插件文件夹拖到 `pack.cmd`，把文件夹或 ZIP 拖到 `check.cmd`。工具包保留官方示例的源码、离线依赖和许可；四个示例的 ZIP 见 [development-examples](./plugins/development-examples/README.md)，可先解包再修改。`pack` 会排除 `.env`、`.npmrc` 等本地凭据文件，并对相同内容生成完全相同的 ZIP。
+
+维护者修改工具包源码或 `plugins/template` 后，运行 `npm run build:plugin-devkit` 重新生成 `lx-plugin.cjs`、模板和独立 ZIP；ZIP 位于 `.gitignore` 的忽略范围内，需在本地生成后另行分发。工具包的自动化验证为 `node --test tests/plugin-devkit.test.cjs`，真实导入测试为 `node --test tests/plugin-devkit.electron.test.cjs`，后者需要先完成界面构建，并让 `npm run dev` 在另一个终端保持运行。
 
 ## 代码入口
 
