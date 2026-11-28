@@ -1,0 +1,284 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MediaBackdrop from '../components/MediaBackdrop.astro';
+import Typewriter from '../components/Typewriter.astro';
+
+const typingPhrases = [
+  '扩展音源插件机制',
+  '五平台 Cookie 同步',
+  '歌曲智能换源',
+  '七档音质解锁',
+  '无缝衔接播放',
+  '内置插件商店',
+];
+
+const appRepoUrl = 'https://github.com/LX-M-Music/lx-m_lx-Miao-moe-music-desktop';
+
+const features = [
+  {
+    icon: '<path d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4a2 2 0 0 0-2 2v3.8h1.5a2.7 2.7 0 0 1 0 5.4H2V20a2 2 0 0 0 2 2h3.8v-1.5a2.7 2.7 0 0 1 5.4 0V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/>',
+    title: '扩展音源插件',
+    description: '第三方音源以独立插件形式存在，内置插件商店一键安装官方插件。接口失效只需更新插件，主程序无需发版。',
+  },
+  {
+    icon: '<path d="M12 2a10 10 0 1 0 10 10h-10z"/><path d="M12 2v10h10A10 10 0 0 0 12 2z" opacity=".5"/>',
+    title: 'Cookie 同步与歌单回传',
+    description: '网易云、QQ、酷狗、酷我、咪咕五平台：导入自建歌单、回传本地修改、上报播放记录，播放记录 30 分钟内自动去重。',
+  },
+  {
+    icon: '<path d="M7 4 3 8l4 4"/><path d="M3 8h13a4 4 0 0 1 0 8h-1"/><path d="M17 20l4-4-4-4"/>',
+    title: '歌曲换源',
+    description: '按歌名、歌手与时长智能匹配候选版本，试听确认后跨平台原位替换，找不到匹配时可查看其他平台的搜索结果。',
+  },
+  {
+    icon: '<path d="M4 14v-4m4 8V6m4 12V2m4 18V8m4 8v-4"/>',
+    title: '自定义音源与高音质',
+    description: '在线导入或本地导入音源脚本，支持 128k / 320k / flac / flac24bit / hires / atmos / master 七档音质，失败自动降级重试。',
+  },
+  {
+    icon: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.5-4.5L6 21"/>',
+    title: '流动背景与封面缓存',
+    description: '以当前歌曲专辑封面生成流动背景，按钮颜色可跟随背景变化；封面按需加载并写入磁盘缓存（约 256 MiB 上限）。',
+  },
+  {
+    icon: '<path d="M13 2 4.5 13.5H11L9.5 22 19 9.5h-6.5z"/>',
+    title: '无缝播放与流畅动效',
+    description: '双 audio 引擎交叉淡化实现无缝衔接，切歌渐入渐出 100-3000ms 可调；全局平滑动画系统，速率 0.5x-1.5x 可调。',
+  },
+];
+
+const columns = ['LX 原版', 'LX-X 移动版', 'LX-M 桌面版'];
+const rows: Array<{ feature: string; cells: Array<{ tone: 'yes' | 'no' | 'partial'; text?: string }> }> = [
+  { feature: '扩展音源插件', cells: [{ tone: 'no' }, { tone: 'no' }, { tone: 'yes', text: '插件商店' }] },
+  { feature: 'Cookie 歌单同步与回传', cells: [{ tone: 'no' }, { tone: 'yes' }, { tone: 'yes', text: '5 平台' }] },
+  { feature: '播放记录上报', cells: [{ tone: 'no' }, { tone: 'yes' }, { tone: 'yes', text: '30 分钟去重' }] },
+  { feature: '歌曲换源', cells: [{ tone: 'no' }, { tone: 'no' }, { tone: 'yes', text: '跨平台匹配' }] },
+  { feature: '封面缓存', cells: [{ tone: 'no' }, { tone: 'no' }, { tone: 'yes', text: '256 MiB 上限' }] },
+  { feature: '高音质解锁', cells: [{ tone: 'partial', text: '自定义源' }, { tone: 'partial', text: '部分 Cookie' }, { tone: 'yes', text: '七档音质' }] },
+];
+
+function cellText(cell: { tone: 'yes' | 'no' | 'partial'; text?: string }): string {
+  if (cell.tone === 'yes') return cell.text ?? '支持';
+  if (cell.tone === 'no') return '—';
+  return `部分 · ${cell.text}`;
+}
+---
+
+<BaseLayout active="/">
+  <section class="hero">
+    <MediaBackdrop
+      sources={['video:https://t.alcy.cc/acg', 'img:https://t.alcy.cc/moez', 'img:https://t.alcy.cc/ycy']}
+    />
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="hero-badge">开源 · 免费 · 桌面端</span>
+        <h1>LX-M Music</h1>
+        <Typewriter phrases={typingPhrases} />
+        <p class="hero-sub">
+          基于 LX Music 原版深度增强：多平台音乐搜索 · 本地歌单管理 · 桌面歌词 · 音效与可视化
+        </p>
+        <div class="hero-chips">
+          {['扩展音源插件', 'Cookie 同步', '歌曲换源', '插件商店', '高音质解锁'].map((chip) => (
+            <span class="badge">{chip}</span>
+          ))}
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="/docs">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            阅读文档
+          </a>
+          <a class="btn btn-tonal" href="/download">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+            立即下载
+          </a>
+          <a class="btn btn-outline" href={appRepoUrl} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+      <div class="hero-icon-card">
+        <img src="/icons/Icon-512.png" alt="LX-M Music 应用图标" width="168" height="168" />
+        <span>LX-M Music 桌面版</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>核心特性</h2>
+        <p>在 LX Music 原版基础上，新增多项增强功能</p>
+      </div>
+      <div class="features-grid">
+        {
+          features.map((f) => (
+            <div class="feature-card">
+              <div class="f-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={f.icon} />
+              </div>
+              <h3>{f.title}</h3>
+              <p>{f.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section tinted">
+    <div class="container" style="max-width: 1028px;">
+      <div class="section-header">
+        <h2>版本对比</h2>
+        <p>LX-M 与原版、移动版的差异</p>
+      </div>
+      <div class="comparison-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>特性</th>
+              {columns.map((col, i) => <th class={i === 2 ? 'col-mark' : ''}>{col}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rows.map((row) => (
+                <tr>
+                  <td>{row.feature}</td>
+                  {row.cells.map((cell, i) => (
+                    <td class={i === 2 ? 'col-mark' : cell.tone}>
+                      <span class={i === 2 ? 'col-mark' : cell.tone}>{cellText(cell)}</span>
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-band">
+      <h2>准备好开始了吗？</h2>
+      <p>下载 LX-M Music，体验扩展音源插件与 Cookie 同步带来的全新音乐体验。</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary" href="/download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          下载软件
+        </a>
+        <a class="btn btn-outline" href="/docs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          查看文档
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero h1 {
+    margin: 20px 0 0;
+    font-size: clamp(2.6rem, 6vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+  .hero-sub {
+    margin: 14px 0 0;
+    max-width: 560px;
+    color: var(--text-soft);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .hero-icon-card {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 26px;
+    border-radius: 40px;
+    background: var(--input-bg);
+    border: 1px solid var(--border-soft);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .hero-icon-card img {
+    width: 168px;
+    height: 168px;
+    border-radius: 34px;
+  }
+  .hero-icon-card span {
+    color: var(--text-soft);
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+  .comparison-wrap {
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    overflow-x: auto;
+  }
+  .cta-band {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 44px;
+    text-align: center;
+    border-radius: 32px;
+    background: var(--brand-soft);
+    border: 1px solid var(--brand-border);
+  }
+  .cta-band h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 3vw, 1.75rem);
+    font-weight: 800;
+  }
+  .cta-band p {
+    margin: 12px 0 0;
+    color: var(--text-soft);
+  }
+  .cta-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  @media (max-width: 900px) {
+    .hero-text {
+      align-items: center;
+    }
+    .hero-icon-card {
+      order: -1;
+      padding: 18px;
+      border-radius: 30px;
+    }
+    .hero-icon-card img {
+      width: 116px;
+      height: 116px;
+      border-radius: 24px;
+    }
+    .hero-icon-card span {
+      display: none;
+    }
+  }
+</style>

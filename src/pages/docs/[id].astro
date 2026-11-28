@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { docSections, allDocPages, findDocPage, docAssetPath, type DocPageDef } from '../../lib/docs';
+import { renderMarkdown } from '../../lib/markdown';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+export function getStaticPaths() {
+  return allDocPages.map((page) => ({ params: { id: page.id }, props: { page } }));
+}
+
+interface Props {
+  page: DocPageDef;
+}
+
+const { page } = Astro.props;
+
+// 构建时读取 Markdown 并渲染为纯 HTML（首屏即全文，零运行时加载）
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+let html = '';
+try {
+  const md = readFileSync(path.join(root, docAssetPath(page)), 'utf8');
+  html = renderMarkdown(md);
+} catch (err) {
+  html = '<p>该文档暂时无法加载，请检查网络后重试。</p>';
+}
+
+const index = allDocPages.findIndex((p) => p.id === page.id);
+const prev = index > 0 ? allDocPages[index - 1] : undefined;
+const next = index < allDocPages.length - 1 ? allDocPages[index + 1] : undefined;
+const currentSection = docSections.find((s) => s.pages.some((p) => p.id === page.id));
+---
+
+<BaseLayout
+  title={`${page.title} - LX-M Music 文档`}
+  description={`${page.title} — LX-M Music 文档：从安装到进阶的功能说明、故障排查与开发指南。`}
+  active="/docs"
+>
+  <div class="container">
+    <div class="docs-layout with-sidebar">
+      <nav class="docs-sidebar" aria-label="文档目录">
+        {
+          docSections.map((section) => (
+            <div class="sidebar-group">
+              <h4>{section.title}</h4>
+              {section.pages.map((p) => (
+                <a href={`/docs/${p.id}`} class={p.id === page.id ? 'current' : ''} aria-current={p.id === page.id ? 'page' : undefined}>
+                  {p.title}
+                </a>
+              ))}
+            </div>
+          ))
+        }
+      </nav>
+
+      <article class="doc-detail">
+        <details class="mobile-doc-nav">
+          <summary>{currentSection?.title ?? '目录'} · {page.title}</summary>
+          {
+            docSections.map((section) => (
+              <div class="sidebar-group">
+                <h4>{section.title}</h4>
+                {section.pages.map((p) => (
+                  <a href={`/docs/${p.id}`} class={p.id === page.id ? 'current' : ''}>
+                    {p.title}
+                  </a>
+                ))}
+              </div>
+            ))
+          }
+        </details>
+
+        <a class="back-link" href="/docs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          返回文档目录
+        </a>
+
+        <div class="doc-detail-head">
+          <h1>
+            {page.title}
+            {page.source === 'app' && <span class="badge sync">每日自动同步</span>}
+          </h1>
+          <p class="d-sub">
+            {
+              page.source === 'app'
+                ? '内容每日自动同步自应用仓库 master 分支（构建时打包，随站点部署更新）。'
+                : '本页为 Astro 静态预渲染，打开即是全文，无需等待运行时加载。'
+            }
+          </p>
+        </div>
+
+        <hr class="doc-divider" />
+
+        <div class="markdown-body" set:html={html} />
+
+        <hr class="doc-divider" />
+
+        <nav class="doc-pager" aria-label="上一篇下一篇">
+          {
+            prev ? (
+              <a class="prev" href={`/docs/${prev.id}`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                <span>{prev.title}</span>
+              </a>
+            ) : (
+              <span />
+            )
+          }
+          {
+            next ? (
+              <a class="next" href={`/docs/${next.id}`}>
+                <span>{next.title}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </a>
+            ) : (
+              <span />
+            )
+          }
+        </nav>
+        <div style="height: 24px;"></div>
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .doc-detail {
+    max-width: 860px;
+    min-width: 0;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-faint);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .doc-detail-head {
+    margin-top: 8px;
+  }
+  .doc-detail-head h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  .d-sub {
+    margin: 8px 0 0;
+    color: var(--text-faint);
+    font-size: 0.8rem;
+  }
+  .doc-divider {
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    margin: 20px 0;
+  }
+  .doc-pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .doc-pager a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 48%;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-soft);
+    background: var(--surface);
+    color: var(--text-soft);
+    font-size: 0.86rem;
+    font-weight: 600;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .doc-pager a:hover {
+    text-decoration: none;
+    border-color: var(--brand-border);
+    color: var(--brand);
+    transform: translateY(-2px);
+  }
+  .doc-pager a.next {
+    margin-left: auto;
+    text-align: right;
+  }
+  .doc-pager a span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .doc-pager svg {
+    flex: none;
+    width: 15px;
+    height: 15px;
+  }
+  .mobile-doc-nav {
+    margin-bottom: 6px;
+  }
+  .mobile-doc-nav summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    font-weight: 700;
+    font-size: 0.9rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mobile-doc-nav summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-doc-nav summary::after {
+    content: '展开目录';
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .mobile-doc-nav[open] summary::after {
+    content: '收起目录';
+  }
+  @media (min-width: 1100px) {
+    .mobile-doc-nav {
+      display: none;
+    }
+  }
+  @media (max-width: 560px) {
+    .doc-pager {
+      flex-direction: column;
+    }
+    .doc-pager a {
+      max-width: 100%;
+    }
+    .doc-pager a.next {
+      margin-left: 0;
+    }
+  }
+</style>

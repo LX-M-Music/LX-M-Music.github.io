@@ -1,16 +1,10 @@
-# Flutter / Dart
-.dart_tool/
-.packages
-build/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-coverage/
-*.iml
-
-# Node
+# Astro / Node
 node_modules/
+dist/
+.astro/
+
+# 构建产物
+build/
 
 # 环境与临时
 .env
@@ -20,4 +14,14 @@ node_modules/
 # IDE
 .idea/
 .vscode/
-.docusaurus/
+.playwright-mcp/
+
+# 旧 Flutter 构建残留
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+coverage/
+*.iml

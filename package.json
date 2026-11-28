@@ -1,0 +1,17 @@
+{
+  "name": "lx-m-music-site",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LX-M Music 官网与文档站（Astro 静态构建）",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.1.1",
+    "marked": "^15.0.4"
+  }
+}

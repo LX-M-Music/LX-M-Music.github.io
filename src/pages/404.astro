@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="页面不存在 - LX-M Music">
+  <div class="nf-page">
+    <img src="/loading/hamster.png" alt="迷路的仓鼠" width="150" height="150" />
+    <h1>404 · 页面不存在</h1>
+    <p>这只仓鼠把页面藏起来了，回首页看看吧。</p>
+    <a class="btn btn-primary" href="/">返回首页</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .nf-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    gap: 8px;
+  }
+  .nf-page img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    animation: mascot-bob 1.8s ease-in-out infinite;
+  }
+  .nf-page h1 {
+    margin: 10px 0 0;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+  .nf-page p {
+    margin: 0 0 18px;
+    color: var(--text-faint);
+  }
+  @keyframes mascot-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-9px) rotate(-3deg); }
+  }
+</style>

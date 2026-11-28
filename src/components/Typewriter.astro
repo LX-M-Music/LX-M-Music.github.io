@@ -1,0 +1,66 @@
+---
+/// 打字机效果：逐字打出 → 停留 → 逐字擦除 → 下一句，末尾光标闪烁。
+interface Props {
+  phrases: string[];
+}
+
+const { phrases } = Astro.props;
+---
+
+<span class="typewriter" data-phrases={JSON.stringify(phrases)}><span class="tw-text"></span><span class="cursor"></span></span>
+
+<script>
+  function initTypewriter(el: HTMLElement) {
+    if (el.dataset.ready === '1') return;
+    el.dataset.ready = '1';
+    let phrases: string[] = [];
+    try {
+      phrases = JSON.parse(el.dataset.phrases || '[]');
+    } catch (e) {
+      return;
+    }
+    const textEl = el.querySelector<HTMLElement>('.tw-text');
+    if (!textEl || phrases.length === 0) return;
+
+    const TYPE_MS = 110;
+    const ERASE_MS = 45;
+    const HOLD_MS = 2200;
+
+    let phraseIndex = 0;
+    let charCount = 0;
+    let erasing = false;
+
+    function tick() {
+      const phrase = phrases[phraseIndex]!;
+      if (!erasing) {
+        charCount += 1;
+        textEl!.textContent = phrase.slice(0, charCount);
+        if (charCount >= phrase.length) {
+          erasing = true;
+          window.setTimeout(tick, HOLD_MS);
+          return;
+        }
+        window.setTimeout(tick, TYPE_MS);
+      } else {
+        charCount -= 1;
+        textEl!.textContent = phrase.slice(0, charCount);
+        if (charCount <= 0) {
+          erasing = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          window.setTimeout(tick, 500);
+          return;
+        }
+        window.setTimeout(tick, ERASE_MS);
+      }
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // 减少动态：直接显示完整首句
+      textEl!.textContent = phrases[0]!;
+      return;
+    }
+    window.setTimeout(tick, 500);
+  }
+
+  document.querySelectorAll<HTMLElement>('.typewriter[data-phrases]').forEach(initTypewriter);
+</script>

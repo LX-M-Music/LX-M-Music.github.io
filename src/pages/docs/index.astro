@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { docSections } from '../../lib/docs';
+---
+
+<BaseLayout
+  title="文档 - LX-M Music"
+  description="LX-M Music 文档：从安装到进阶的功能说明、故障排查与开发指南。"
+  active="/docs"
+>
+  <div class="container" style="max-width: var(--doc-w);">
+    <div class="docs-index-head" style="padding: 44px 0 8px;">
+      <h1>文档</h1>
+      <p>
+        从安装到进阶：功能说明、故障排查与开发指南。「上游文档」每日自动同步应用仓库；
+        全站为 Astro 静态预渲染，打开即是全文，无需等待引擎与字体。
+      </p>
+    </div>
+
+    <div class="docs-sections" style="padding-bottom: 56px;">
+      {
+        docSections.map((section) => (
+          <div class="docs-section">
+            <h2>{section.title}</h2>
+            <div class="doc-cards">
+              {section.pages.map((page) => (
+                <a class="doc-card" href={`/docs/${page.id}`}>
+                  <div class="d-title">
+                    {page.title}
+                    {page.source === 'app' && <span class="badge sync">自动同步</span>}
+                  </div>
+                  <div class="d-path">/docs/{page.id}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .docs-index-head h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+  .docs-index-head p {
+    margin: 10px 0 0;
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    max-width: 640px;
+  }
+  .docs-section {
+    margin-top: 34px;
+  }
+  .docs-section > h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+  .docs-section > h2::before {
+    content: '';
+    width: 4px;
+    height: 17px;
+    border-radius: 2px;
+    background: var(--brand);
+  }
+  .doc-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+</style>

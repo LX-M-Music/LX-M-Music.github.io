@@ -1,0 +1,118 @@
+---
+/// 全幅媒体背景（防闪烁分层轮换）— 与 Flutter 版 media_backdrop.dart 逻辑一致：
+/// 所有源只在进入页面时各请求一次并分层常驻；仅在已就绪的层之间轮换淡入淡出；
+/// 视频仅在轮到它时播放，切走即暂停。
+interface Props {
+  sources: string[]; // "video:url" 或 "img:url"
+  rotate?: boolean;
+  class?: string;
+}
+
+const { sources, rotate = true } = Astro.props;
+---
+
+<div class={`lxm-backdrop ${Astro.props.class ?? ''}`} data-rotate={rotate ? '1' : '0'} data-sources={JSON.stringify(sources)}>
+  <noscript></noscript>
+</div>
+
+<script>
+  // 每个挂载点独立初始化；同一页面可能存在多个背景
+  function initBackdrop(root: HTMLElement) {
+    if (root.dataset.ready === '1') return;
+    root.dataset.ready = '1';
+
+    let sources: string[] = [];
+    try {
+      sources = JSON.parse(root.dataset.sources || '[]');
+    } catch (e) {
+      return;
+    }
+    const rotate = root.dataset.rotate === '1';
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const layers: (HTMLImageElement | HTMLVideoElement)[] = [];
+    const ready: boolean[] = [];
+    let active = -1;
+    let video: HTMLVideoElement | null = null;
+    let videoIndex = -1;
+
+    sources.forEach((spec, i) => {
+      const sep = spec.indexOf(':');
+      const kind = spec.slice(0, sep);
+      const url = spec.slice(sep + 1);
+      if (kind === 'video') {
+        const el = document.createElement('video');
+        el.className = 'lxm-layer';
+        el.src = url;
+        el.muted = true;
+        el.loop = true;
+        el.setAttribute('playsinline', '');
+        el.autoplay = false;
+        el.preload = 'auto';
+        el.addEventListener('loadeddata', () => markReady(i));
+        el.addEventListener('error', () => {});
+        video = el;
+        videoIndex = i;
+        layers[i] = el;
+      } else {
+        const el = document.createElement('img');
+        el.className = 'lxm-layer';
+        el.src = url;
+        el.decoding = 'async';
+        el.alt = '';
+        el.addEventListener('load', () => markReady(i));
+        el.addEventListener('error', () => {});
+        layers[i] = el;
+      }
+      root.appendChild(layers[i]!);
+    });
+
+    const mask = document.createElement('div');
+    mask.className = 'lxm-mask';
+    root.appendChild(mask);
+
+    function markReady(i: number) {
+      if (ready[i]) return;
+      ready[i] = true;
+      if (active === -1) activate(i);
+    }
+
+    function activate(i: number) {
+      if (active === i) return;
+      layers.forEach((layer, k) => {
+        if (!layer) return;
+        layer.classList.toggle('lxm-layer-active', k === i);
+      });
+      active = i;
+      syncVideo();
+    }
+
+    function syncVideo() {
+      if (!video || videoIndex < 0) return;
+      if (active === videoIndex) {
+        video.play().catch(function () {});
+      } else {
+        video.pause();
+      }
+    }
+
+    function rotateOnce() {
+      const total = layers.length;
+      if (total <= 1) return;
+      const start = (active + 1) % total;
+      for (let step = 0; step < total; step++) {
+        const candidate = (start + step) % total;
+        if (ready[candidate]) {
+          activate(candidate);
+          return;
+        }
+      }
+    }
+
+    if (rotate && !reduced && layers.length > 1) {
+      setInterval(rotateOnce, 18000);
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('.lxm-backdrop[data-sources]').forEach(initBackdrop);
+</script>
